@@ -3,7 +3,10 @@ import homeImg from "../assets/image/prof-pic.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="pt-24 pb-12 md:pt-32 md:pb-20 bg-gradient-to-r from-blue-50 to-purple-50">
+    <section
+      id="hero"
+      className="pt-24 pb-12 md:pt-32 md:pb-20 bg-gradient-to-r from-blue-50 to-purple-50"
+    >
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 text-center">
         <div className="flex justify-center mb-6 md:mb-12">
           <img

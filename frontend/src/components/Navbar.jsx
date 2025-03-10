@@ -23,7 +23,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center justify-center flex-1 mx-8">
             <div className="flex space-x-4">
               <a
-                href="#about"
+                href="#hero"
                 onClick={handleLinkClick}
                 className="text-gray-600 hover:text-purple-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-purple-50"
               >
@@ -80,7 +80,7 @@ const Navbar = () => {
         <div className={`${isMenuOpen ? "block" : "hidden"} md:hidden mt-4`}>
           <div className="flex flex-col space-y-2">
             <a
-              href="#about"
+              href="#hero"
               onClick={handleLinkClick}
               className="block text-gray-600 hover:text-purple-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-purple-50"
             >

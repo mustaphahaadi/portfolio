@@ -26,7 +26,10 @@ const projects = [
 
 const PortfolioSection = () => {
   return (
-    <section className="py-12 md:py-20 bg-gradient-to-b from-green-50 to-white">
+    <section
+      id="portfolio"
+      className="py-12 md:py-20 bg-gradient-to-b from-green-50 to-white"
+    >
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12 md:mb-20">
           <h1 className="font-medium text-gray-700 text-2xl md:text-3xl mb-3">
