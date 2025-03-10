@@ -1,0 +1,94 @@
+// import React from "react";
+
+const experiences = [
+  {
+    company: "Massa Fames / New York",
+    position: "Junior Front-End Developer",
+    year: "2016",
+    description:
+      "Developed responsive web interfaces and collaborated with design teams to implement UI/UX best practices.",
+    icon: "fas fa-code",
+  },
+  {
+    company: "Tech Innovators / San Francisco",
+    position: "Front-End Developer",
+    year: "2017-2018",
+    description:
+      "Led front-end development for multiple projects, implemented modern JavaScript frameworks, and optimized web performance.",
+    icon: "fas fa-laptop-code",
+  },
+  {
+    company: "Code Masters / London",
+    position: "Full Stack Developer",
+    year: "2019-2020",
+    description:
+      "Designed and developed full-stack applications, implemented REST APIs, and managed database systems.",
+    icon: "fas fa-layer-group",
+  },
+  {
+    company: "Digital Solutions / Berlin",
+    position: "Senior Developer",
+    year: "2021-2022",
+    description:
+      "Mentored junior developers, architected complex systems, and implemented CI/CD pipelines.",
+    icon: "fas fa-users-cog",
+  },
+  {
+    company: "Future Tech / Tokyo",
+    position: "Tech Lead",
+    year: "2023-Present",
+    description:
+      "Leading development teams, making technical decisions, and driving innovation in software solutions.",
+    icon: "fas fa-chart-line",
+  },
+];
+
+const ExperienceSection = () => {
+  return (
+    <section className="py-16 md:py-24 bg-gradient-to-b from-pink-50 to-white">
+      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-16 md:mb-24">
+          <h1 className="font-bold text-gray-900 text-3xl md:text-4xl mb-4">
+            Professional Journey
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
+            My career milestones and key contributions in the tech industry
+          </p>
+        </div>
+
+        <div className="space-y-8 md:space-y-12">
+          {experiences.map((exp, index) => (
+            <div key={index} className="group relative">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6 md:p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="md:col-span-2 flex items-center justify-center">
+                  <div className="w-16 h-16 flex items-center justify-center bg-blue-50 rounded-full">
+                    <i className={`${exp.icon} text-blue-600 text-2xl`}></i>
+                  </div>
+                </div>
+                <div className="md:col-span-3">
+                  <p className="text-blue-600 font-semibold mb-2">{exp.year}</p>
+                  <p className="text-gray-700 font-medium text-sm">
+                    {exp.company}
+                  </p>
+                </div>
+                <div className="md:col-span-7">
+                  <h3 className="text-gray-900 font-bold text-xl md:text-2xl mb-3">
+                    {exp.position}
+                  </h3>
+                  <p className="text-gray-600 text-base leading-relaxed">
+                    {exp.description}
+                  </p>
+                </div>
+              </div>
+              {index !== experiences.length - 1 && (
+                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ExperienceSection;
