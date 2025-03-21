@@ -1,6 +1,45 @@
-// import React from "react";
+import { useState } from "react";
 
 const ContactSection = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus({ type: 'loading', message: 'Sending message...' });
+
+    try {
+      const response = await fetch("http://localhost:8000/api/contact/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      setStatus({ type: "success", message: "Message sent successfully!" });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Contact form error:", error);
+      setStatus({
+        type: "error",
+        message: `Failed to send message: ${error.message}. Please try again.`,
+      });
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <section
       id="contact"
@@ -20,7 +59,7 @@ const ContactSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Contact Form */}
           <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label
                   htmlFor="name"
@@ -31,6 +70,9 @@ const ContactSection = () => {
                 <input
                   type="text"
                   id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                   placeholder="Codeo ReStart"
                   required
@@ -47,6 +89,9 @@ const ContactSection = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                   placeholder="codeosocials@gmail.com"
                   required
@@ -62,6 +107,9 @@ const ContactSection = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   rows="5"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                   placeholder="Hi there, I'd like to talk about..."
@@ -71,10 +119,21 @@ const ContactSection = () => {
 
               <button
                 type="submit"
-                className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                disabled={status.type === 'loading'}
+                className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-400"
               >
-                Send Message
+                {status.type === 'loading' ? 'Sending...' : 'Send Message'}
               </button>
+
+              {status.message && (
+                <div className={`p-4 rounded-lg ${
+                  status.type === 'success' ? 'bg-green-50 text-green-800' : 
+                  status.type === 'error' ? 'bg-red-50 text-red-800' : 
+                  'bg-blue-50 text-blue-800'
+                }`}>
+                  {status.message}
+                </div>
+              )}
             </form>
           </div>
 

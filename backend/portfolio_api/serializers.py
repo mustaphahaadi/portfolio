@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Project, Tool, Experience, Education, Service
+from .models import Project, Tool, Experience, Education, Service, Contact
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,4 +24,9 @@ class EducationSerializer(serializers.ModelSerializer):
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
-        fields = '__all__' 
+        fields = '__all__'
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['id', 'name', 'email', 'message', 'created_at']

@@ -8,6 +8,7 @@ router.register(r'tools', views.ToolViewSet)
 router.register(r'experiences', views.ExperienceViewSet)
 router.register(r'education', views.EducationViewSet)
 router.register(r'services', views.ServiceViewSet)
+router.register(r'contact', views.ContactViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
