@@ -1,18 +1,18 @@
 // import React from "react";
 
 const tools = [
+  { name: "Python", icon: "fab fa-python" },
   { name: "JavaScript", icon: "fab fa-js" },
   { name: "React", icon: "fab fa-react" },
-  { name: "Node.js", icon: "fab fa-node" },
-  { name: "Python", icon: "fab fa-python" },
   { name: "Git", icon: "fab fa-git-alt" },
-  { name: "Docker", icon: "fab fa-docker" },
-  { name: "AWS", icon: "fab fa-aws" },
+  { name: "Linux", icon: "fab fa-linux" },
+  { name: "Node.js", icon: "fab fa-node" },
   { name: "HTML5", icon: "fab fa-html5" },
   { name: "CSS3", icon: "fab fa-css3-alt" },
+  { name: "Docker", icon: "fab fa-docker" },
+  { name: "AWS", icon: "fab fa-aws" },
   { name: "Sass", icon: "fab fa-sass" },
   { name: "NPM", icon: "fab fa-npm" },
-  { name: "Linux", icon: "fab fa-linux" },
 ];
 
 const ToolsSection = () => {

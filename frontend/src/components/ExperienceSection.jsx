@@ -2,20 +2,28 @@
 
 const experiences = [
   {
-    company: "Massa Fames / New York",
-    position: "Junior Front-End Developer",
-    year: "2016",
+    company: "ReStart Digital / Kumasi",
+    position: "Founder & CEO",
+    year: "2024-Present",
     description:
-      "Developed responsive web interfaces and collaborated with design teams to implement UI/UX best practices.",
-    icon: "fas fa-code",
+      "Mentored junior developers, architected complex systems, and implemented CI/CD pipelines.",
+    icon: "fas fa-users-cog",
   },
   {
-    company: "Tech Innovators / San Francisco",
-    position: "Front-End Developer",
-    year: "2017-2018",
+    company: "Khoders World - KsTU / Campus Club",
+    position: "President & Tutor",
+    year: "2022-Present",
+    description:
+      "Mentoring beginner programmers, making technical decisions, and driving innovation in software solutions.",
+    icon: "fas fa-laptop-code",
+  },
+  {
+    company: "IRID, KsTU",
+    position: "Reseach Associate",
+    year: "May - Oct, 2025",
     description:
       "Led front-end development for multiple projects, implemented modern JavaScript frameworks, and optimized web performance.",
-    icon: "fas fa-laptop-code",
+    icon: "fas fa-chart-line",
   },
   {
     company: "Code Masters / London",
@@ -24,22 +32,6 @@ const experiences = [
     description:
       "Designed and developed full-stack applications, implemented REST APIs, and managed database systems.",
     icon: "fas fa-layer-group",
-  },
-  {
-    company: "Digital Solutions / Berlin",
-    position: "Senior Developer",
-    year: "2021-2022",
-    description:
-      "Mentored junior developers, architected complex systems, and implemented CI/CD pipelines.",
-    icon: "fas fa-users-cog",
-  },
-  {
-    company: "Future Tech / Tokyo",
-    position: "Tech Lead",
-    year: "2023-Present",
-    description:
-      "Leading development teams, making technical decisions, and driving innovation in software solutions.",
-    icon: "fas fa-chart-line",
   },
 ];
 

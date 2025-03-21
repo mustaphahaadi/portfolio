@@ -3,8 +3,8 @@
 const testimonials = [
   {
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    name: "Stephan Clark",
-    position: "CEO at EarlyBird",
+    name: "Prof. Smart Sarpong",
+    position: "Director, IRID-KsTU",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg",
   },
   {

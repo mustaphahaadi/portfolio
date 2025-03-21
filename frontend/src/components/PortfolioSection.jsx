@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 
 const PortfolioSection = () => {
-  // Hardcoded projects data
-  const hardcodedProjects = [
+  const Projects = [
     {
       id: 1,
       number: "01",
@@ -26,7 +25,7 @@ const PortfolioSection = () => {
     }
   ];
 
-  const [projects, setProjects] = useState(hardcodedProjects);
+  const [projects, setProjects] = useState(Projects);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -53,10 +52,9 @@ const PortfolioSection = () => {
       });
   };
 
-  // Not calling fetchProjects in useEffect anymore
   useEffect(() => {
-    // Using hardcoded data instead
-    setProjects(hardcodedProjects);
+
+    setProjects(Projects);
     setLoading(false);
   }, []);
 

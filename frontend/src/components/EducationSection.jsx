@@ -2,25 +2,25 @@
 
 const educationItems = [
   {
-    year: "2015 – 2016",
-    institution: "University of Technology",
+    year: "2021 – 2025",
+    institution: "Kumasi Technical University",
     description:
-      "Bachelor's degree in Computer Science with a focus on software engineering and web development.",
-    location: "New York, USA",
+      "Bachelor's degree in Computer Technology with a focus on software engineering and web development.",
+    location: "Kumasi, Ghana",
   },
   {
-    year: "2013 – 2015",
-    institution: "Tech Institute",
+    year: "2017 – 2020",
+    institution: "Ghanaian-German Snr High",
     description:
-      "Advanced diploma in Full Stack Development, specializing in modern web technologies.",
-    location: "San Francisco, USA",
+      "A pure eneral pure science with biology, chemistry, physics and elective maths.",
+    location: "Tepa, Ghana",
   },
   {
-    year: "2011 – 2013",
-    institution: "Coding Academy",
+    year: "- – 2017",
+    institution: "Tuffour Red Sox Int.",
     description:
       "Intensive programming bootcamp focusing on front-end development and UI/UX design.",
-    location: "London, UK",
+    location: "Bawku, Ghana",
   },
 ];
 

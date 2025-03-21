@@ -149,7 +149,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-700 mb-1">Location</h3>
-                  <p className="text-gray-600">New York, USA</p>
+                  <p className="text-gray-600">Kumasi, Ghana</p>
                   <p className="text-sm text-gray-500 mt-1">
                     Open to remote work worldwide
                   </p>
@@ -162,7 +162,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-700 mb-1">Email</h3>
-                  <p className="text-gray-600">codeo@example.com</p>
+                  <p className="text-gray-600">mustaphahaadi04@gmail.com</p>
                   <p className="text-sm text-gray-500 mt-1">
                     Typically responds within 24 hours
                   </p>
@@ -175,7 +175,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-700 mb-1">Phone</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
+                  <p className="text-gray-600">+233 (0) 548-367-637</p>
                   <p className="text-sm text-gray-500 mt-1">
                     Available Mon-Fri, 9am-5pm EST
                   </p>

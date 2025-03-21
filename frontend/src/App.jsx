@@ -1,9 +1,8 @@
 // import React from "react";
-import "./assets/image/brand-1.png";
-import "./assets/image/navbar-logo.png";
-import "./assets/image/brand-3.png";
-import "./assets/css/tailwind.css";
-
+// import "./assets/image/brand-1.png";
+// import "./assets/image/navbar-logo.png";
+// import "./assets/image/brand-3.png";
+// import "./assets/css/tailwind.css";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import ServicesSection from "./components/ServicesSection";
@@ -17,7 +16,7 @@ import ContactSection from "./components/ContactSection";
 
 const App = () => {
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-100">
       <Navbar />
       <HeroSection />
       <ServicesSection />
