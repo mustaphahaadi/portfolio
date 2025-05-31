@@ -1,11 +1,29 @@
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
+
 const api = axios.create({
-  baseURL: "http://127.0.0.1:9000/api/",
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-export const getProjects = () => api.get("projects/");
-export const getTools = () => api.get("tools/");
-export const getExperiences = () => api.get("experiences/");
-export const getEducation = () => api.get("education/");
-export const getServices = () => api.get("services/");
+// Add response interceptor for error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error("API Error:", error);
+    return Promise.reject(error);
+  }
+);
+
+// API endpoints
+export const getProjects = (params = {}) => api.get("/projects/", { params });
+export const getTools = (params = {}) => api.get("/tools/", { params });
+export const getExperiences = (params = {}) => api.get("/experiences/", { params });
+export const getEducation = (params = {}) => api.get("/education/", { params });
+export const getServices = (params = {}) => api.get("/services/", { params });
+export const submitContact = (data) => api.post("/contact/", data);
+
+export default api;
