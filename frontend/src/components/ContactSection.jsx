@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { submitContact } from "../services/api";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -13,18 +14,7 @@ const ContactSection = () => {
     setStatus({ type: 'loading', message: 'Sending message...' });
 
     try {
-      const response = await fetch("http://localhost:8000/api/contact/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-
+      await submitContact(formData);
       setStatus({ type: "success", message: "Message sent successfully!" });
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
