@@ -183,7 +183,7 @@ const PortfolioSection = () => {
                   Close
                 </button>
                 <a 
-                  href="#" 
+                  href="https://github.com/mustaphahaadi/" 
                   className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                   target="_blank" 
                   rel="noopener noreferrer"
