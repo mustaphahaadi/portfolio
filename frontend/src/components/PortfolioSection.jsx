@@ -6,21 +6,21 @@ const PortfolioSection = () => {
       id: 1,
       number: "01",
       title: "Blockchain-Based Medical Records Sytem (EmersBlock)",
-      description: "A full-featured online store with product catalog, shopping cart, and secure checkout process.",
-      icon: "fas fa-shopping-cart"
+      description: "A blockchain-based system for secure and efficient medical record management.This is my final year project at KsTU. I'm currently working on it.",
+      icon: "fas fa-hospital"
     },
     {
       id: 2,
       number: "02",
-      title: "School Management Ssytem",
-      description: "A responsive portfolio website to showcase professional work and skills.",
+      title: "School Management System",
+      description: "A comprehensive platform for managing school operations, including student enrollment, attendance, and grading. It is for basic school management.",
       icon: "fas fa-briefcase"
     },
     {
       id: 3,
       number: "03",
       title: "Saas Cybersecurity Platform(CyberRest)",
-      description: "A productivity application for managing tasks, deadlines, and team collaboration.",
+      description: "A SaaS platform for cybersecurity solutions, including threat detection, vulnerability assessment, and incident response. A fun project I did with a friend as my learning project in cybersecurity.",
       icon: "fas fa-tasks"
     }
   ];
