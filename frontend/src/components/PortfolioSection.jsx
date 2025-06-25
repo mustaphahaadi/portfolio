@@ -5,21 +5,21 @@ const PortfolioSection = () => {
     {
       id: 1,
       number: "01",
-      title: "E-commerce Platform",
+      title: "Blockchain-Based Medical Records Sytem (EmersBlock)",
       description: "A full-featured online store with product catalog, shopping cart, and secure checkout process.",
       icon: "fas fa-shopping-cart"
     },
     {
       id: 2,
       number: "02",
-      title: "Portfolio Website",
+      title: "School Management Ssytem",
       description: "A responsive portfolio website to showcase professional work and skills.",
       icon: "fas fa-briefcase"
     },
     {
       id: 3,
       number: "03",
-      title: "Task Management App",
+      title: "Saas Cybersecurity Platform(CyberRest)",
       description: "A productivity application for managing tasks, deadlines, and team collaboration.",
       icon: "fas fa-tasks"
     }

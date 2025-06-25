@@ -44,7 +44,7 @@ const Footer = () => {
         </div>
 
         <p className="text-gray-500 text-sm mt-6">
-          © 2025 CODEO. All rights reserved.
+          ©2025 Mustapha Haadi. All rights reserved.
         </p>
       </div>
     </footer>

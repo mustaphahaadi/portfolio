@@ -19,7 +19,7 @@ const educationItems = [
     year: "- – 2017",
     institution: "Tuffour Red Sox Int.",
     description:
-      "Intensive programming bootcamp focusing on front-end development and UI/UX design.",
+      "Nusery & Basic Education",
     location: "Bawku, Ghana",
   },
 ];

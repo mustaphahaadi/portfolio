@@ -2,21 +2,21 @@
 
 const testimonials = [
   {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    name: "Prof. Smart Sarpong",
+    text: "Haadi is one of the very best young guys that worked with me at IRID. He doesn't talk much but always ready to learn",
+    name: "Prof. Smart A. Sarpong",
     position: "Director, IRID-KsTU",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg",
   },
   {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    name: "Sarah Johnson",
-    position: "CTO at TechNova",
-    avatar: "https://randomuser.me/api/portraits/women/2.jpg",
+    text: "Haadi is a cool guy. Though he is not technically good than me. But the rare thing about him is that he is always ready to learn and improve himself. He is a great team player and always brings positive energy to the team.",
+    name: "Hope Nelson Decardi",
+    position: "Co-Fouder ReStartDigital",
+    avatar: "https://randomuser.me/api/portraits/men/2.jpg",
   },
   {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    name: "Michael Brown",
-    position: "Product Manager at CodeCraft",
+    text: "Haadi is a dedicated and hardworking individual. He always strives to deliver the best results and is not afraid to take on challenges.",
+    name: "Madam Diana Owusu",
+    position: "Register, IRID-KsTU",
     avatar: "https://randomuser.me/api/portraits/men/3.jpg",
   },
 ];

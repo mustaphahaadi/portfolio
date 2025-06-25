@@ -25,7 +25,7 @@ const ToolsSection = () => {
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
             My expertise spans across these essential tools and programming
-            languages
+            languages. Some of them I am still learning, but I am passionate about mastering them to enhance my development skills.
           </p>
         </div>
 

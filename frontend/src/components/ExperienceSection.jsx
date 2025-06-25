@@ -3,15 +3,15 @@
 const experiences = [
   {
     company: "ReStart Digital / Kumasi",
-    position: "Founder & CEO",
+    position: "Fo-Founder & CEO",
     year: "2024-Present",
     description:
-      "Mentored junior developers, architected complex systems, and implemented CI/CD pipelines.",
+      "A startup building innovative software solutions, making technical decisions, and driving innovation in software solutions",
     icon: "fas fa-users-cog",
   },
   {
     company: "Khoders World - KsTU / Campus Club",
-    position: "President & Tutor",
+    position: "Former President & Tutor",
     year: "2022-Present",
     description:
       "Mentoring beginner programmers, making technical decisions, and driving innovation in software solutions.",

@@ -3,21 +3,21 @@
 const services = [
   {
     icon: "fas fa-chart-line",
-    title: "High experience",
+    title: "Software Developement",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "I use react, vite, and tailwindcss to build modern, responsive web applications that are fast and user-friendly. I also utilize Python Django for backend development, ensuring robust and scalable server-side solutions.",
   },
   {
     icon: "fas fa-cubes",
-    title: "Useful sandboxes",
+    title: "Skill Training & Tutoring",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "I'm a good tutor and trainer, specializing in Python, JavaScript, React, and Django. I offer personalized training sessions to help individuals and teams enhance their skills and knowledge in these technologies.",
   },
   {
     icon: "fas fa-coffee",
-    title: "Success side projects",
+    title: "Cybersecurity",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "I am also a cybersecurity enthusiast, focusing on ethical hacking and penetration testing. Still learning, but I am passionate about securing systems and networks against potential threats.",
   },
 ];
 

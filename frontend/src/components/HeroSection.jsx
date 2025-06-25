@@ -3,7 +3,7 @@ import homeImg from "../assets/image/prof-pic.jpg";
 
 const HeroSection = () => {
   const [typedText, setTypedText] = useState("");
-  const roles = ["Fouder & CEO", "Full Stack Developer", "Problem Solver", "Tech Enthusiast"];
+  const roles = ["Co-Fouder & CEO", "Software Developer", "Problem Solver", "Cybersecurity Enthusiast"];
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
@@ -61,8 +61,7 @@ const HeroSection = () => {
         </h1>
 
         <p className="font-normal text-gray-600 text-md md:text-xl mb-8 max-w-2xl mx-auto">
-          I have a passion for software. I enjoy creating tools that make life
-          easier for people.
+          I am a software developer. I build modern, responsive web applications using React, Vite, and Tailwind CSS. I also specialize in Python Django for backend development and have a keen interest in cybersecurity. READY TO ALWAYS LEARN AND GROW.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
