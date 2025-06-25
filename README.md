@@ -124,4 +124,4 @@ Access the admin panel at `http://127.0.0.1:8000/admin/` to manage content.
 
 ## Environment Variables
 
-Create a `.env` file in the backend directory with the following variables:
+Create a `.env` file in the backend directory with your environment variables
