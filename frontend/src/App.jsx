@@ -13,6 +13,7 @@ import ToolsSection from "./components/ToolsSection";
 import TestimonialSection from "./components/TestimonialSection";
 import Footer from "./components/Footer";
 import ContactSection from "./components/ContactSection";
+import { Analytics } from '@vercel/analytics/react';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
       <TestimonialSection />
       <ContactSection />
       <Footer />
+      <Analytics />
     </div>
   );
 };
