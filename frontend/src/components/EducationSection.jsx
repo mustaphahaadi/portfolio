@@ -1,6 +1,7 @@
-// import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getEducation } from "../services/api";
 
-const educationItems = [
+const defaultEducationItems = [
   {
     year: "2021 – 2025",
     institution: "Kumasi Technical University",
@@ -25,6 +26,16 @@ const educationItems = [
 ];
 
 const EducationSection = () => {
+  const { data: apiData } = useQuery({
+    queryKey: ['education'],
+    queryFn: async () => {
+      const response = await getEducation();
+      return response.data;
+    }
+  });
+
+  const educationItems = Array.isArray(apiData) ? apiData : (apiData?.results || defaultEducationItems);
+
   return (
     <section
       id="education"

@@ -1,6 +1,7 @@
-// import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getTools } from "../services/api";
 
-const tools = [
+const defaultTools = [
   { name: "Python", icon: "fab fa-python" },
   { name: "JavaScript", icon: "fab fa-js" },
   { name: "React", icon: "fab fa-react" },
@@ -16,6 +17,16 @@ const tools = [
 ];
 
 const ToolsSection = () => {
+  const { data: apiData } = useQuery({
+    queryKey: ['tools'],
+    queryFn: async () => {
+      const response = await getTools();
+      return response.data;
+    }
+  });
+
+  const tools = Array.isArray(apiData) ? apiData : (apiData?.results || defaultTools);
+
   return (
     <section className="py-10 md:py-16 bg-gradient-to-b from-teal-50 to-white">
       <div className="container max-w-screen-xl mx-auto px-4">

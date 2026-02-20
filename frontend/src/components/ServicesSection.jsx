@@ -1,6 +1,7 @@
-// import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getServices } from "../services/api";
 
-const services = [
+const defaultServices = [
   {
     icon: "fas fa-chart-line",
     title: "Software Developement",
@@ -22,6 +23,16 @@ const services = [
 ];
 
 const ServicesSection = () => {
+  const { data: apiData } = useQuery({
+    queryKey: ['services'],
+    queryFn: async () => {
+      const response = await getServices();
+      return response.data;
+    }
+  });
+
+  const services = Array.isArray(apiData) ? apiData : (apiData?.results || defaultServices);
+
   return (
     <section className="py-12 md:py-16 bg-gradient-to-b from-indigo-50 to-white">
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6">

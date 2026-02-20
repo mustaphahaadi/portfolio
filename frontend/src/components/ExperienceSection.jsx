@@ -1,6 +1,7 @@
-// import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getExperiences } from "../services/api";
 
-const experiences = [
+const defaultExperiences = [
   {
     company: "ReStart Digital / Kumasi",
     position: "Fo-Founder & CEO",
@@ -36,6 +37,16 @@ const experiences = [
 ];
 
 const ExperienceSection = () => {
+  const { data: apiData } = useQuery({
+    queryKey: ['experiences'],
+    queryFn: async () => {
+      const response = await getExperiences();
+      return response.data;
+    }
+  });
+
+  const experiences = Array.isArray(apiData) ? apiData : (apiData?.results || defaultExperiences);
+
   return (
     <section
       id="experience"
