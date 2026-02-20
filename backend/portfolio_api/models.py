@@ -1,6 +1,20 @@
 from django.db import models
 
-# Create your models here.
+class Profile(models.Model):
+    name = models.CharField(max_length=100, default="Mustapha Haadi Bugnaba")
+    roles = models.JSONField(help_text="Provide a list of roles, e.g. [\"Software Developer\", \"Problem Solver\"]", default=list)
+    bio = models.TextField()
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
+    github_link = models.URLField(blank=True, null=True)
+    linkedin_link = models.URLField(blank=True, null=True)
+    twitter_link = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Profile"
 
 class Project(models.Model):
     number = models.CharField(max_length=10)

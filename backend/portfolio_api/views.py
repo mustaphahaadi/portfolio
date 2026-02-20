@@ -8,8 +8,9 @@ from django.views.decorators.cache import cache_page
 import logging
 
 logger = logging.getLogger(__name__)
-from .models import Project, Tool, Experience, Education, Service, Contact
+from .models import Profile, Project, Tool, Experience, Education, Service, Contact
 from .serializers import (
+    ProfileSerializer,
     ProjectSerializer, 
     ToolSerializer, 
     ExperienceSerializer, 
@@ -82,3 +83,18 @@ class ServiceViewSet(viewsets.ModelViewSet):
     filterset_fields = ['title']
     search_fields = ['title', 'description']
     ordering_fields = ['title']
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    
+    # Only allow GET requests for the public API
+    http_method_names = ['get']
+
+    def list(self, request, *args, **kwargs):
+        # Always return the first/only profile directly instead of an array
+        instance = Profile.objects.first()
+        if not instance:
+            return Response({"detail": "Profile not configured yet."}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)

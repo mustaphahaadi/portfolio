@@ -1,8 +1,20 @@
 import React from "react";
 import logo from "../assets/image/navbar-logo.png";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "../services/api";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const { data: profileResponse } = useQuery({
+    queryKey: ['profile'],
+    queryFn: async () => {
+      const res = await getProfile();
+      return res.data;
+    }
+  });
+
+  const resumeUrl = profileResponse?.resume || "#";
 
   const handleLinkClick = () => {
     setIsMenuOpen(false);
@@ -61,10 +73,15 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center space-x-3">
-            <button className="px-4 py-1.5 md:px-6 md:py-2.5 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-medium text-sm md:text-base rounded-lg hover:from-blue-600 hover:to-blue-800 transition-all duration-300 flex items-center space-x-2 shadow-md hover:shadow-lg">
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-1.5 md:px-6 md:py-2.5 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-medium text-sm md:text-base rounded-lg hover:from-blue-600 hover:to-blue-800 transition-all duration-300 flex items-center space-x-2 shadow-md hover:shadow-lg"
+            >
               <i className="fas fa-download"></i>
               <span>Get my CV</span>
-            </button>
+            </a>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 text-gray-600 hover:text-blue-600 focus:outline-none rounded-lg hover:bg-blue-50 transition-colors duration-300"

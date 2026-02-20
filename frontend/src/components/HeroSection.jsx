@@ -1,15 +1,31 @@
 import { useState, useEffect } from "react";
-import homeImg from "../assets/image/prof-pic.jpg";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "../services/api";
 
 const HeroSection = () => {
+  const { data: profileResponse, isLoading } = useQuery({
+    queryKey: ['profile'],
+    queryFn: async () => {
+      const res = await getProfile();
+      return res.data;
+    }
+  });
+
+  const profile = profileResponse || {
+    name: "Mustapha Haadi Bugnaba",
+    roles: ["Software Developer", "Problem Solver", "Cybersecurity Enthusiast"],
+    bio: "I am a software developer. I build modern, responsive web applications using React, Vite, and Tailwind CSS. I also specialize in Python Django for backend development and have a keen interest in cybersecurity. READY TO ALWAYS LEARN AND GROW.",
+    profile_picture: null,
+  };
+
   const [typedText, setTypedText] = useState("");
-  const roles = ["Co-Fouder & CEO", "Software Developer", "Problem Solver", "Cybersecurity Enthusiast"];
+  const roles = profile.roles && profile.roles.length > 0 ? profile.roles : ["Developer"];
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
     let currentIndex = 0;
     let currentRole = roles[roleIndex];
-    
+
     const typeText = () => {
       if (currentIndex <= currentRole.length) {
         setTypedText(currentRole.slice(0, currentIndex));
@@ -40,19 +56,23 @@ const HeroSection = () => {
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 text-center">
         <div className="flex justify-center mb-6 md:mb-12">
           <div className="relative">
-            <img
-              src={homeImg}
-              alt="CODEO"
-              className="rounded-full w-28 h-28 md:w-40 md:h-40 border-4 border-white shadow-lg"
-            />
+            {isLoading ? (
+              <div className="rounded-full w-28 h-28 md:w-40 md:h-40 border-4 border-white shadow-lg bg-gray-200 animate-pulse"></div>
+            ) : (
+              <img
+                src={profile.profile_picture || "https://placehold.co/400x400/png?text=Profile"}
+                alt={profile.name}
+                className="rounded-full w-28 h-28 md:w-40 md:h-40 border-4 border-white shadow-lg object-cover"
+              />
+            )}
             <div className="absolute -bottom-2 -right-2 bg-green-500 w-4 h-4 md:w-6 md:h-6 rounded-full border-2 border-white"></div>
           </div>
         </div>
-        
+
         <h6 className="font-medium text-gray-700 text-base md:text-2xl uppercase mb-4 md:mb-8 tracking-wider">
-          MUSTAPHA HAADI BUGNABA
+          {profile.name}
         </h6>
-        
+
         <h1 className="font-bold text-gray-900 text-4xl md:text-7xl leading-none mb-8">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-600">
             {typedText}
@@ -61,7 +81,7 @@ const HeroSection = () => {
         </h1>
 
         <p className="font-normal text-gray-600 text-md md:text-xl mb-8 max-w-2xl mx-auto">
-          I am a software developer. I build modern, responsive web applications using React, Vite, and Tailwind CSS. I also specialize in Python Django for backend development and have a keen interest in cybersecurity. READY TO ALWAYS LEARN AND GROW.
+          {profile.bio}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
