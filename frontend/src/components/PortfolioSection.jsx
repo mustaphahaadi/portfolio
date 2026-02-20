@@ -37,7 +37,7 @@ const PortfolioSection = () => {
     }
   });
 
-  const projects = apiProjects || Projects;
+  const projects = Array.isArray(apiProjects) ? apiProjects : (apiProjects?.results || Projects);
   const error = queryError ? queryError.message : null;
 
   const handleViewProject = (project) => {
