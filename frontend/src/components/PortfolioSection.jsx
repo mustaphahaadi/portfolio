@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getProjects } from "../services/api";
 
 const PortfolioSection = () => {
   const Projects = [
@@ -25,38 +27,18 @@ const PortfolioSection = () => {
     }
   ];
 
-  const [projects, setProjects] = useState(Projects);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Keeping the fetch function but not using it initially
-  const fetchProjects = () => {
-    setLoading(true);
-    setError(null);
-    fetch('http://localhost:8000/api/projects/')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        setProjects(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching projects:', error);
-        setError('Failed to load projects. Please try again later.');
-        setLoading(false);
-      });
-  };
+  const { data: apiProjects, isLoading: loading, error: queryError, refetch: fetchProjects } = useQuery({
+    queryKey: ['projects'],
+    queryFn: async () => {
+      const response = await getProjects();
+      return response.data;
+    }
+  });
 
-  useEffect(() => {
-
-    setProjects(Projects);
-    setLoading(false);
-  }, []);
+  const projects = apiProjects || Projects;
+  const error = queryError ? queryError.message : null;
 
   const handleViewProject = (project) => {
     setSelectedProject(project);
@@ -87,7 +69,7 @@ const PortfolioSection = () => {
           <h1 className="font-medium text-gray-700 text-2xl md:text-3xl mb-3">Portfolio</h1>
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4">
             <p>{error}</p>
-            <button 
+            <button
               onClick={fetchProjects}
               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
@@ -136,7 +118,7 @@ const PortfolioSection = () => {
                     {project.title}
                   </h2>
                   <p className="text-gray-600 mb-4">{project.description}</p>
-                  <button 
+                  <button
                     onClick={() => handleViewProject(project)}
                     className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                   >
@@ -156,7 +138,7 @@ const PortfolioSection = () => {
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-bold text-gray-800">{selectedProject.title}</h2>
-                <button 
+                <button
                   onClick={closeModal}
                   className="text-gray-500 hover:text-gray-700"
                 >
@@ -165,27 +147,27 @@ const PortfolioSection = () => {
                   </svg>
                 </button>
               </div>
-              
+
               <div className="mb-6 bg-blue-50 p-8 rounded-lg flex justify-center">
                 <i className={`${selectedProject.icon || 'fas fa-code'} text-8xl text-blue-600`}></i>
               </div>
-              
+
               <div className="mb-4">
                 <h3 className="text-lg font-semibold mb-2">Description</h3>
                 <p className="text-gray-600">{selectedProject.description}</p>
               </div>
-              
+
               <div className="flex justify-end mt-6">
-                <button 
+                <button
                   onClick={closeModal}
                   className="px-6 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors mr-2"
                 >
                   Close
                 </button>
-                <a 
-                  href="https://github.com/mustaphahaadi/" 
+                <a
+                  href="https://github.com/mustaphahaadi/"
                   className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                  target="_blank" 
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   Visit Project

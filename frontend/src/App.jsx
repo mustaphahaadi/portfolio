@@ -14,6 +14,7 @@ import TestimonialSection from "./components/TestimonialSection";
 import Footer from "./components/Footer";
 import ContactSection from "./components/ContactSection";
 import { Analytics } from '@vercel/analytics/react';
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
       <ContactSection />
       <Footer />
       <Analytics />
+      <Toaster position="bottom-right" />
     </div>
   );
 };

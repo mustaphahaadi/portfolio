@@ -3,7 +3,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.core.mail import send_mail
 from django.conf import settings
-from django.core.cache import cache
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+import logging
+
+logger = logging.getLogger(__name__)
 from .models import Project, Tool, Experience, Education, Service, Contact
 from .serializers import (
     ProjectSerializer, 
@@ -14,14 +18,6 @@ from .serializers import (
     ContactSerializer
 )
 
-class CachedViewSetMixin:
-    def get_queryset(self):
-        cache_key = f"{self.__class__.__name__}_queryset"
-        queryset = cache.get(cache_key)
-        if queryset is None:
-            queryset = super().get_queryset()
-            cache.set(cache_key, queryset, timeout=300)  # Cache for 5 minutes
-        return queryset
 
 class ContactViewSet(viewsets.ModelViewSet):
     queryset = Contact.objects.all().order_by('-created_at')
@@ -42,40 +38,45 @@ class ContactViewSet(viewsets.ModelViewSet):
                 )
             except Exception as e:
                 # Log the error but don't fail the request
-                print(f"Email sending failed: {str(e)}")
+                logger.error("Email sending failed", exc_info=True)
             
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ProjectViewSet(CachedViewSetMixin, viewsets.ModelViewSet):
+@method_decorator(cache_page(60 * 5), name='dispatch')
+class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     filterset_fields = ['title']
     search_fields = ['title', 'description']
     ordering_fields = ['number', 'title']
 
-class ToolViewSet(CachedViewSetMixin, viewsets.ModelViewSet):
+@method_decorator(cache_page(60 * 5), name='dispatch')
+class ToolViewSet(viewsets.ModelViewSet):
     queryset = Tool.objects.all()
     serializer_class = ToolSerializer
     filterset_fields = ['name']
     search_fields = ['name']
     ordering_fields = ['name']
 
-class ExperienceViewSet(CachedViewSetMixin, viewsets.ModelViewSet):
+@method_decorator(cache_page(60 * 5), name='dispatch')
+class ExperienceViewSet(viewsets.ModelViewSet):
     queryset = Experience.objects.all().order_by('-year')
     serializer_class = ExperienceSerializer
     filterset_fields = ['company', 'position']
     search_fields = ['company', 'position', 'description']
     ordering_fields = ['year', 'company']
 
-class EducationViewSet(CachedViewSetMixin, viewsets.ModelViewSet):
+@method_decorator(cache_page(60 * 5), name='dispatch')
+class EducationViewSet(viewsets.ModelViewSet):
     queryset = Education.objects.all().order_by('-year')
     serializer_class = EducationSerializer
     filterset_fields = ['institution']
     search_fields = ['institution', 'description']
     ordering_fields = ['year', 'institution']
 
-class ServiceViewSet(CachedViewSetMixin, viewsets.ModelViewSet):
+@method_decorator(cache_page(60 * 5), name='dispatch')
+class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
     filterset_fields = ['title']

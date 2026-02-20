@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { submitContact } from "../services/api";
+import { toast } from "react-hot-toast";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -7,22 +8,21 @@ const ContactSection = () => {
     email: '',
     message: ''
   });
-  const [status, setStatus] = useState({ type: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus({ type: 'loading', message: 'Sending message...' });
+    setIsSubmitting(true);
 
     try {
       await submitContact(formData);
-      setStatus({ type: "success", message: "Message sent successfully!" });
+      toast.success("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Contact form error:", error);
-      setStatus({
-        type: "error",
-        message: `Failed to send message: ${error.message}. Please try again.`,
-      });
+      toast.error(`Failed to send message: ${error.message}. Please try again.`);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -109,21 +109,13 @@ const ContactSection = () => {
 
               <button
                 type="submit"
-                disabled={status.type === 'loading'}
+                disabled={isSubmitting}
                 className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-400"
               >
-                {status.type === 'loading' ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
 
-              {status.message && (
-                <div className={`p-4 rounded-lg ${
-                  status.type === 'success' ? 'bg-green-50 text-green-800' : 
-                  status.type === 'error' ? 'bg-red-50 text-red-800' : 
-                  'bg-blue-50 text-blue-800'
-                }`}>
-                  {status.message}
-                </div>
-              )}
+
             </form>
           </div>
 
