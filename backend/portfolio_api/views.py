@@ -95,6 +95,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
         # Always return the first/only profile directly instead of an array
         instance = Profile.objects.first()
         if not instance:
-            return Response({"detail": "Profile not configured yet."}, status=status.HTTP_404_NOT_FOUND)
+            # Return empty response instead of 404 to avoid Axios throwing frontend errors
+            return Response(None, status=status.HTTP_200_OK)
         serializer = self.get_serializer(instance)
         return Response(serializer.data)

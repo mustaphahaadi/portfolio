@@ -25,7 +25,8 @@ const ToolsSection = () => {
     }
   });
 
-  const tools = Array.isArray(apiData) ? apiData : (apiData?.results || defaultTools);
+  const toolsArray = Array.isArray(apiData) ? apiData : apiData?.results;
+  const tools = toolsArray?.length > 0 ? toolsArray : defaultTools;
 
   return (
     <section className="py-10 md:py-16 bg-gradient-to-b from-teal-50 to-white">

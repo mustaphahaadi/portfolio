@@ -45,7 +45,8 @@ const ExperienceSection = () => {
     }
   });
 
-  const experiences = Array.isArray(apiData) ? apiData : (apiData?.results || defaultExperiences);
+  const experiencesArray = Array.isArray(apiData) ? apiData : apiData?.results;
+  const experiences = experiencesArray?.length > 0 ? experiencesArray : defaultExperiences;
 
   return (
     <section

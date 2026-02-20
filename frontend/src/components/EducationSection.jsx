@@ -34,7 +34,8 @@ const EducationSection = () => {
     }
   });
 
-  const educationItems = Array.isArray(apiData) ? apiData : (apiData?.results || defaultEducationItems);
+  const educationArray = Array.isArray(apiData) ? apiData : apiData?.results;
+  const educationItems = educationArray?.length > 0 ? educationArray : defaultEducationItems;
 
   return (
     <section

@@ -31,7 +31,8 @@ const ServicesSection = () => {
     }
   });
 
-  const services = Array.isArray(apiData) ? apiData : (apiData?.results || defaultServices);
+  const servicesArray = Array.isArray(apiData) ? apiData : apiData?.results;
+  const services = servicesArray?.length > 0 ? servicesArray : defaultServices;
 
   return (
     <section className="py-12 md:py-16 bg-gradient-to-b from-indigo-50 to-white">
