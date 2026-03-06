@@ -2,6 +2,15 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../services/api";
 
+const ASCII_ART = `
+  ██╗  ██╗ █████╗  █████╗ ██████╗ ██╗
+  ██║  ██║██╔══██╗██╔══██╗██╔══██╗██║
+  ███████║███████║███████║██║  ██║██║
+  ██╔══██║██╔══██║██╔══██║██║  ██║██║
+  ██║  ██║██║  ██║██║  ██║██████╔╝██║
+  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝
+`;
+
 const HeroSection = () => {
   const { data: profileResponse, isLoading } = useQuery({
     queryKey: ['profile'],
@@ -13,14 +22,20 @@ const HeroSection = () => {
 
   const profile = profileResponse || {
     name: "Mustapha Haadi Bugnaba",
-    roles: ["Software Developer", "Problem Solver", "Cybersecurity Enthusiast"],
-    bio: "I am a software developer. I build modern, responsive web applications using React, Vite, and Tailwind CSS. I also specialize in Python Django for backend development and have a keen interest in cybersecurity. READY TO ALWAYS LEARN AND GROW.",
+    roles: ["DevOps Engineer", "Cloud Architect", "Infrastructure Specialist"],
+    bio: "I architect and automate cloud infrastructure, build robust CI/CD pipelines, and orchestrate containers at scale. Passionate about reliability, scalability, and the art of keeping systems running smoothly. AWS, Docker, Kubernetes, Terraform — I speak fluent infrastructure.",
     profile_picture: null,
   };
 
   const [typedText, setTypedText] = useState("");
-  const roles = profile.roles && profile.roles.length > 0 ? profile.roles : ["Developer"];
+  const roles = profile.roles && profile.roles.length > 0 ? profile.roles : ["DevOps Engineer"];
   const [roleIndex, setRoleIndex] = useState(0);
+  const [showBoot, setShowBoot] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowBoot(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     let currentIndex = 0;
@@ -30,12 +45,12 @@ const HeroSection = () => {
       if (currentIndex <= currentRole.length) {
         setTypedText(currentRole.slice(0, currentIndex));
         currentIndex++;
-        setTimeout(typeText, 100);
+        setTimeout(typeText, 80);
       } else {
         setTimeout(() => {
           setRoleIndex((prev) => (prev + 1) % roles.length);
           currentIndex = 0;
-        }, 2000);
+        }, 2500);
       }
     };
 
@@ -48,58 +63,167 @@ const HeroSection = () => {
     contactSection.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const bootLines = [
+    { text: "BIOS v3.14 — System POST complete", color: "var(--term-gray)" },
+    { text: "Loading kernel modules...", color: "var(--term-gray)" },
+    { text: "[  OK  ] Mounted /dev/portfolio", color: "var(--term-green)" },
+    { text: "[  OK  ] Started DevOps Engine v2.0", color: "var(--term-green)" },
+    { text: "[  OK  ] Network interface eth0 up", color: "var(--term-green)" },
+    { text: `Welcome, ${profile.name}`, color: "var(--term-amber)" },
+  ];
+
   return (
     <section
       id="hero"
-      className="pt-24 pb-12 md:pt-32 md:pb-20 bg-gradient-to-r from-blue-50 to-purple-50"
+      className="terminal-section"
+      style={{ paddingTop: "5rem" }}
     >
-      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 text-center">
-        <div className="flex justify-center mb-6 md:mb-12">
-          <div className="relative">
-            {isLoading ? (
-              <div className="rounded-full w-28 h-28 md:w-40 md:h-40 border-4 border-white shadow-lg bg-gray-200 animate-pulse"></div>
-            ) : (
-              <img
-                src={profile.profile_picture || "https://placehold.co/400x400/png?text=Profile"}
-                alt={profile.name}
-                className="rounded-full w-28 h-28 md:w-40 md:h-40 border-4 border-white shadow-lg object-cover"
-              />
-            )}
-            <div className="absolute -bottom-2 -right-2 bg-green-500 w-4 h-4 md:w-6 md:h-6 rounded-full border-2 border-white"></div>
+      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6">
+        <div className="terminal-window boot-flicker">
+          <div className="terminal-titlebar">
+            <div className="terminal-dots">
+              <span className="terminal-dot red"></span>
+              <span className="terminal-dot yellow"></span>
+              <span className="terminal-dot green"></span>
+            </div>
+            <span className="terminal-title">haadi@cloud:~ — bash — 120×40</span>
           </div>
-        </div>
+          <div className="terminal-body" style={{ minHeight: "400px" }}>
+            {/* Boot Sequence */}
+            {showBoot ? (
+              <div>
+                {bootLines.map((line, i) => (
+                  <div
+                    key={i}
+                    className="fade-in-up"
+                    style={{
+                      animationDelay: `${i * 0.25}s`,
+                      fontSize: "0.8rem",
+                      marginBottom: "4px",
+                      color: line.color,
+                      fontFamily: "var(--term-font)",
+                    }}
+                  >
+                    {line.text}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="fade-in-up">
+                {/* ASCII Art Name */}
+                <div className="ascii-art mb-6 text-center overflow-x-auto">
+                  <pre>{ASCII_ART}</pre>
+                </div>
 
-        <h6 className="font-medium text-gray-700 text-base md:text-2xl uppercase mb-4 md:mb-8 tracking-wider">
-          {profile.name}
-        </h6>
+                {/* Profile Picture */}
+                <div className="flex justify-center mb-6">
+                  <div className="relative">
+                    {isLoading ? (
+                      <div
+                        className="rounded-full"
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          border: "2px solid var(--term-green-dark)",
+                          background: "var(--term-bg-card)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <i className="fas fa-spinner fa-spin" style={{ color: "var(--term-green)", fontSize: "1.5rem" }}></i>
+                      </div>
+                    ) : (
+                      <img
+                        src={profile.profile_picture || "https://placehold.co/400x400/0a0a0a/00ff41?text=%3E_"}
+                        alt={profile.name}
+                        className="rounded-full object-cover"
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          border: "2px solid var(--term-green-dim)",
+                          boxShadow: "0 0 15px rgba(0, 255, 65, 0.2)",
+                        }}
+                      />
+                    )}
+                    <div
+                      className="absolute"
+                      style={{
+                        bottom: "-2px",
+                        right: "-2px",
+                        width: "16px",
+                        height: "16px",
+                        borderRadius: "50%",
+                        background: "#28c840",
+                        border: "2px solid var(--term-bg-card)",
+                        boxShadow: "0 0 6px rgba(40, 200, 64, 0.5)",
+                      }}
+                    ></div>
+                  </div>
+                </div>
 
-        <h1 className="font-bold text-gray-900 text-4xl md:text-7xl leading-none mb-8">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-600">
-            {typedText}
-          </span>
-          <span className="animate-blink">|</span>
-        </h1>
+                {/* Name */}
+                <div className="text-center mb-2" style={{ fontSize: "0.8rem", color: "var(--term-gray)" }}>
+                  <span style={{ color: "var(--term-cyan)" }}>$</span> whoami
+                </div>
+                <h2 className="text-center mb-6 glow-green" style={{ fontSize: "1.1rem", color: "var(--term-green)", fontWeight: "600" }}>
+                  {profile.name}
+                </h2>
 
-        <p className="font-normal text-gray-600 text-md md:text-xl mb-8 max-w-2xl mx-auto">
-          {profile.bio}
-        </p>
+                {/* Typing Role */}
+                <div className="text-center mb-6">
+                  <span style={{ color: "var(--term-cyan)", fontSize: "0.85rem" }}>$ </span>
+                  <span style={{ color: "var(--term-gray)", fontSize: "0.85rem" }}>echo $ROLE → </span>
+                  <span className="glow-amber" style={{ fontSize: "1.5rem", fontWeight: "700", color: "var(--term-amber)" }}>
+                    {typedText}
+                  </span>
+                  <span className="cursor-blink"></span>
+                </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="#contact"
-            onClick={handleClick}
-            className="px-7 py-3 md:px-9 md:py-4 font-medium md:font-semibold bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition ease-linear duration-500 flex items-center justify-center"
-          >
-            <span>Hire me</span>
-            <i className="fas fa-arrow-right ml-2"></i>
-          </a>
-          <a
-            href="#portfolio"
-            className="px-7 py-3 md:px-9 md:py-4 font-medium md:font-semibold border-2 border-gray-800 text-gray-800 text-sm rounded-md hover:bg-gray-800 hover:text-white transition ease-linear duration-500 flex items-center justify-center"
-          >
-            <span>View Work</span>
-            <i className="fas fa-briefcase ml-2"></i>
-          </a>
+                {/* Bio */}
+                <div
+                  className="mx-auto mb-8"
+                  style={{
+                    maxWidth: "700px",
+                    padding: "16px",
+                    background: "rgba(0, 255, 65, 0.02)",
+                    borderLeft: "3px solid var(--term-green-dark)",
+                    borderRadius: "0 4px 4px 0",
+                  }}
+                >
+                  <div style={{ color: "var(--term-gray)", fontSize: "0.75rem", marginBottom: "6px" }}>
+                    <span style={{ color: "var(--term-cyan)" }}>$</span> cat about.txt
+                  </div>
+                  <p style={{ color: "var(--term-white)", fontSize: "0.85rem", lineHeight: "1.7" }}>
+                    {profile.bio}
+                  </p>
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a
+                    href="#contact"
+                    onClick={handleClick}
+                    className="terminal-btn"
+                    style={{ justifyContent: "center" }}
+                  >
+                    <span style={{ color: "var(--term-cyan)" }}>&gt;</span>
+                    <span>hire_me --now</span>
+                    <i className="fas fa-arrow-right" style={{ fontSize: "0.7rem" }}></i>
+                  </a>
+                  <a
+                    href="#portfolio"
+                    className="terminal-btn amber"
+                    style={{ justifyContent: "center" }}
+                  >
+                    <span style={{ color: "var(--term-amber)" }}>&gt;</span>
+                    <span>ls projects/</span>
+                    <i className="fas fa-folder-open" style={{ fontSize: "0.7rem" }}></i>
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>
