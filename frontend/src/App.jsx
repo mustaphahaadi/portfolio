@@ -1,8 +1,3 @@
-// import React from "react";
-// import "./assets/image/brand-1.png";
-// import "./assets/image/navbar-logo.png";
-// import "./assets/image/brand-3.png";
-// import "./assets/css/tailwind.css";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import ServicesSection from "./components/ServicesSection";
@@ -18,7 +13,10 @@ import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
-    <div className="bg-gray-100">
+    <div className="terminal-screen">
+      {/* CRT Scanline Overlay */}
+      <div className="crt-overlay"></div>
+
       <Navbar />
       <HeroSection />
       <ServicesSection />
@@ -30,7 +28,18 @@ const App = () => {
       <ContactSection />
       <Footer />
       <Analytics />
-      <Toaster position="bottom-right" />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            background: '#0d1117',
+            color: '#00ff41',
+            border: '1px solid #1e3a1e',
+            fontFamily: "'Fira Code', monospace",
+            fontSize: '0.85rem',
+          },
+        }}
+      />
     </div>
   );
 };

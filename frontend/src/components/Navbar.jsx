@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../assets/image/navbar-logo.png";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../services/api";
 
@@ -20,119 +19,124 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  const navLinks = [
+    { href: "#hero", label: "about", icon: "fas fa-user" },
+    { href: "#experience", label: "experience", icon: "fas fa-briefcase" },
+    { href: "#portfolio", label: "projects", icon: "fas fa-code" },
+    { href: "#testimonials", label: "testimonials", icon: "fas fa-quote-left" },
+    { href: "#contact", label: "contact", icon: "fas fa-envelope" },
+  ];
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100">
+    <nav className="nav-terminal">
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-10 w-auto md:h-12 hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-
-          <div className="hidden md:flex items-center justify-center flex-1 mx-8">
-            <div className="flex space-x-4">
-              <a
-                href="#hero"
-                onClick={handleLinkClick}
-                className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-              >
-                About
-              </a>
-              <a
-                href="#experience"
-                onClick={handleLinkClick}
-                className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-              >
-                Experience
-              </a>
-              <a
-                href="#portfolio"
-                onClick={handleLinkClick}
-                className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-              >
-                Portfolio
-              </a>
-              <a
-                href="#testimonials"
-                onClick={handleLinkClick}
-                className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-              >
-                Testimonials
-              </a>
-              <a
-                href="#contact"
-                onClick={handleLinkClick}
-                className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-              >
-                Contact
-              </a>
+        <div className="flex items-center justify-between h-14">
+          {/* Terminal Prompt Logo */}
+          <div className="flex items-center gap-2" style={{ fontFamily: "var(--term-font)", fontSize: "0.8rem" }}>
+            <div className="terminal-dots hidden sm:flex">
+              <span className="terminal-dot red"></span>
+              <span className="terminal-dot yellow"></span>
+              <span className="terminal-dot green"></span>
             </div>
+            <span className="hidden sm:inline" style={{ marginLeft: "8px" }}>
+              <span className="prompt-user">haadi</span>
+              <span className="prompt-at">@</span>
+              <span className="prompt-host">cloud</span>
+              <span className="prompt-at">:</span>
+              <span className="prompt-path">~/portfolio</span>
+              <span className="prompt-dollar">$</span>
+              <span className="cursor-blink" style={{ marginLeft: "4px" }}></span>
+            </span>
+            <span className="sm:hidden" style={{ color: "var(--term-green)", fontSize: "0.75rem" }}>
+              <i className="fas fa-terminal" style={{ marginRight: "6px" }}></i>
+              haadi@cloud
+            </span>
           </div>
 
-          <div className="flex items-center space-x-3">
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={handleLinkClick}
+                className="nav-link"
+              >
+                <i className={`${link.icon}`} style={{ marginRight: "4px", fontSize: "0.65rem" }}></i>
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          {/* CV Button + Hamburger */}
+          <div className="flex items-center gap-3">
             <a
               href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-1.5 md:px-6 md:py-2.5 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-medium text-sm md:text-base rounded-lg hover:from-blue-600 hover:to-blue-800 transition-all duration-300 flex items-center space-x-2 shadow-md hover:shadow-lg"
+              className="terminal-btn hidden sm:inline-flex"
+              style={{ padding: "5px 14px", fontSize: "0.75rem" }}
             >
               <i className="fas fa-download"></i>
-              <span>Get my CV</span>
+              <span>resume.pdf</span>
             </a>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-gray-600 hover:text-blue-600 focus:outline-none rounded-lg hover:bg-blue-50 transition-colors duration-300"
+              className="md:hidden p-2 rounded"
+              style={{
+                color: "var(--term-green)",
+                background: "transparent",
+                border: "1px solid var(--term-border)",
+                fontFamily: "var(--term-font)",
+                fontSize: "0.8rem",
+              }}
             >
-              <i
-                className={`fas ${isMenuOpen ? "fa-times" : "fa-bars"} text-lg`}
-              ></i>
+              {isMenuOpen ? (
+                <i className="fas fa-times"></i>
+              ) : (
+                <i className="fas fa-bars"></i>
+              )}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        <div className={`${isMenuOpen ? "block" : "hidden"} md:hidden mt-4 pb-4`}>
-          <div className="flex flex-col space-y-2">
-            <a
-              href="#hero"
-              onClick={handleLinkClick}
-              className="block text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-            >
-              About
-            </a>
-            <a
-              href="#experience"
-              onClick={handleLinkClick}
-              className="block text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-            >
-              Experience
-            </a>
-            <a
-              href="#portfolio"
-              onClick={handleLinkClick}
-              className="block text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-            >
-              Portfolio
-            </a>
-            <a
-              href="#testimonials"
-              onClick={handleLinkClick}
-              className="block text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-            >
-              Testimonials
-            </a>
-            <a
-              href="#contact"
-              onClick={handleLinkClick}
-              className="block text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-blue-50"
-            >
-              Contact
-            </a>
+        {isMenuOpen && (
+          <div
+            className="md:hidden pb-4"
+            style={{
+              borderTop: "1px solid var(--term-border)",
+              marginTop: "4px",
+              paddingTop: "8px",
+            }}
+          >
+            <div className="flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={handleLinkClick}
+                  className="nav-link block"
+                  style={{ fontSize: "0.8rem" }}
+                >
+                  <span style={{ color: "var(--term-green-dim)", marginRight: "8px" }}>&gt;</span>
+                  <i className={link.icon} style={{ marginRight: "6px", fontSize: "0.65rem", color: "var(--term-amber)" }}></i>
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href={resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="terminal-btn sm:hidden"
+                style={{ padding: "6px 14px", fontSize: "0.75rem", marginTop: "8px", justifyContent: "center" }}
+              >
+                <i className="fas fa-download"></i>
+                <span>resume.pdf</span>
+              </a>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </nav>
   );
