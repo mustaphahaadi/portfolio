@@ -1,2 +1,32 @@
+# Dependencies
 node_modules/
+
+# Environment
 .env
+.env.local
+.env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# Build outputs
+dist/
+build/
+staticfiles/
+
+# Database (use PostgreSQL in production)
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Media uploads (managed in production)
+media/
