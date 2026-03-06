@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Profile, Project, Tool, Experience, Education, Service
+from .models import Profile, Project, Tool, Experience, Education, Service, Testimonial, Contact
+
 
 class ProfileAdmin(admin.ModelAdmin):
-    # Disable add/delete to enforce Singleton behavior for Profile
+    """Singleton profile — disable add if one exists, disable delete."""
     def has_add_permission(self, request):
         if Profile.objects.exists():
             return False
@@ -11,10 +12,50 @@ class ProfileAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
-# Register your models here.
+
+class ContactAdmin(admin.ModelAdmin):
+    """Read-only view of contact form submissions."""
+    list_display = ('name', 'email', 'created_at')
+    list_filter = ('created_at',)
+    search_fields = ('name', 'email', 'message')
+    readonly_fields = ('name', 'email', 'message', 'created_at')
+    ordering = ('-created_at',)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+class TestimonialAdmin(admin.ModelAdmin):
+    list_display = ('name', 'position', 'created_at')
+    search_fields = ('name', 'position', 'text')
+    ordering = ('-created_at',)
+
+
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('number', 'title')
+    search_fields = ('title', 'description')
+
+
+class ToolAdmin(admin.ModelAdmin):
+    list_display = ('name', 'version', 'status')
+    list_filter = ('status',)
+    search_fields = ('name',)
+
+
+class ExperienceAdmin(admin.ModelAdmin):
+    list_display = ('position', 'company', 'year')
+    search_fields = ('position', 'company')
+
+
+# Register models
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Project)
-admin.site.register(Tool)
-admin.site.register(Experience)
+admin.site.register(Project, ProjectAdmin)
+admin.site.register(Tool, ToolAdmin)
+admin.site.register(Experience, ExperienceAdmin)
 admin.site.register(Education)
 admin.site.register(Service)
+admin.site.register(Testimonial, TestimonialAdmin)
+admin.site.register(Contact, ContactAdmin)

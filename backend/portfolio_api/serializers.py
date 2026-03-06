@@ -1,10 +1,11 @@
 from rest_framework import serializers
-from .models import Profile, Project, Tool, Experience, Education, Service, Contact
+from .models import Profile, Project, Tool, Experience, Education, Service, Testimonial, Contact
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
+
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
@@ -28,6 +29,11 @@ class EducationSerializer(serializers.ModelSerializer):
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
+        fields = '__all__'
+
+class TestimonialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Testimonial
         fields = '__all__'
 
 class ContactSerializer(serializers.ModelSerializer):

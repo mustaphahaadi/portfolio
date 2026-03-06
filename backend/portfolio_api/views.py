@@ -8,7 +8,7 @@ from django.views.decorators.cache import cache_page
 import logging
 
 logger = logging.getLogger(__name__)
-from .models import Profile, Project, Tool, Experience, Education, Service, Contact
+from .models import Profile, Project, Tool, Experience, Education, Service, Testimonial, Contact
 from .serializers import (
     ProfileSerializer,
     ProjectSerializer, 
@@ -16,13 +16,17 @@ from .serializers import (
     ExperienceSerializer, 
     EducationSerializer, 
     ServiceSerializer,
+    TestimonialSerializer,
     ContactSerializer
 )
 
 
 class ContactViewSet(viewsets.ModelViewSet):
-    queryset = Contact.objects.all().order_by('-created_at')
+    """Contact form — public can only POST (create). Admin can view all."""
+    queryset = Contact.objects.all()
     serializer_class = ContactSerializer
+    # Restrict public API to POST only
+    http_method_names = ['post', 'head', 'options']
 
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -84,6 +88,12 @@ class ServiceViewSet(viewsets.ModelViewSet):
     search_fields = ['title', 'description']
     ordering_fields = ['title']
 
+@method_decorator(cache_page(60 * 5), name='dispatch')
+class TestimonialViewSet(viewsets.ReadOnlyModelViewSet):
+    """Testimonials — read-only for public API."""
+    queryset = Testimonial.objects.all()
+    serializer_class = TestimonialSerializer
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -95,7 +105,14 @@ class ProfileViewSet(viewsets.ModelViewSet):
         # Always return the first/only profile directly instead of an array
         instance = Profile.objects.first()
         if not instance:
-            # Return empty response instead of 404 to avoid Axios throwing frontend errors
             return Response(None, status=status.HTTP_200_OK)
         serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+        data = serializer.data
+
+        # Convert relative file URLs to absolute URLs
+        if instance.profile_picture:
+            data['profile_picture'] = request.build_absolute_uri(instance.profile_picture.url)
+        if instance.resume:
+            data['resume'] = request.build_absolute_uri(instance.resume.url)
+        
+        return Response(data)
