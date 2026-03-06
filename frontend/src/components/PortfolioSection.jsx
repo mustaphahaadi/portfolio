@@ -232,8 +232,20 @@ const PortfolioSection = () => {
                 >
                   <span>&gt;</span> close
                 </button>
+                {selectedProject.live_url && (
+                  <a
+                    href={selectedProject.live_url}
+                    className="terminal-btn amber"
+                    style={{ fontSize: "0.75rem", padding: "8px 16px" }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fas fa-external-link-alt"></i>
+                    <span>open --live</span>
+                  </a>
+                )}
                 <a
-                  href="https://github.com/mustaphahaadi/"
+                  href={selectedProject.github_url || "https://github.com/mustaphahaadi/"}
                   className="terminal-btn cyan"
                   style={{ fontSize: "0.75rem", padding: "8px 16px" }}
                   target="_blank"

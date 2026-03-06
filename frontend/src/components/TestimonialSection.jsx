@@ -1,4 +1,7 @@
-const testimonials = [
+import { useQuery } from "@tanstack/react-query";
+import { getTestimonials } from "../services/api";
+
+const defaultTestimonials = [
   {
     text: "Haadi is one of the very best young guys that worked with me at IRID. He doesn't talk much but always ready to learn",
     name: "Prof. Smart A. Sarpong",
@@ -20,6 +23,17 @@ const testimonials = [
 ];
 
 const TestimonialSection = () => {
+  const { data: apiData } = useQuery({
+    queryKey: ['testimonials'],
+    queryFn: async () => {
+      const response = await getTestimonials();
+      return response.data;
+    }
+  });
+
+  const testimonialsArray = Array.isArray(apiData) ? apiData : apiData?.results;
+  const testimonials = testimonialsArray?.length > 0 ? testimonialsArray : defaultTestimonials;
+
   return (
     <section
       id="testimonials"
@@ -46,7 +60,7 @@ const TestimonialSection = () => {
         {/* Testimonial Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="terminal-window">
+            <div key={testimonial.id || index} className="terminal-window">
               <div className="terminal-titlebar" style={{ padding: "8px 12px" }}>
                 <div className="terminal-dots" style={{ gap: "4px" }}>
                   <span className="terminal-dot red" style={{ width: "8px", height: "8px" }}></span>
@@ -80,14 +94,14 @@ const TestimonialSection = () => {
                   }}
                 >
                   <p style={{ color: "var(--term-white)", fontSize: "0.8rem", lineHeight: "1.7", fontStyle: "italic" }}>
-                    "{testimonial.text}"
+                    &quot;{testimonial.text}&quot;
                   </p>
                 </div>
 
                 {/* Author */}
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   <img
-                    src={testimonial.avatar}
+                    src={testimonial.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=0d1117&color=00ff41&size=72`}
                     alt={testimonial.name}
                     style={{
                       width: "36px",

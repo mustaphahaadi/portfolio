@@ -1,10 +1,32 @@
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "../services/api";
+
+const defaultSocialLinks = [
+  { href: "https://www.github.com/mustaphahaadi", icon: "fab fa-github", label: "github", pid: "3001" },
+  { href: "https://www.linkedin.com/mustaphahaadi", icon: "fab fa-linkedin-in", label: "linkedin", pid: "3002" },
+  { href: "https://www.x.com/RealCodeo", icon: "fab fa-x-twitter", label: "x/twitter", pid: "3003" },
+];
+
 const Footer = () => {
-  const socialLinks = [
-    { href: "https://www.github.com/mustaphahaadi", icon: "fab fa-github", label: "github", pid: "3001" },
-    { href: "https://www.linkedin.com/mustaphahaadi", icon: "fab fa-linkedin-in", label: "linkedin", pid: "3002" },
-    { href: "https://www.x.com/RealCodeo", icon: "fab fa-x-twitter", label: "x/twitter", pid: "3003" },
-    { href: "https://www.instagram.com/mustaphahaadi", icon: "fab fa-instagram", label: "instagram", pid: "3004" },
-  ];
+  const { data: profileResponse } = useQuery({
+    queryKey: ['profile'],
+    queryFn: async () => {
+      const res = await getProfile();
+      return res.data;
+    }
+  });
+
+  // Build social links from profile API data, fallback to defaults
+  const socialLinks = profileResponse
+    ? [
+        profileResponse.github_link && { href: profileResponse.github_link, icon: "fab fa-github", label: "github", pid: "3001" },
+        profileResponse.linkedin_link && { href: profileResponse.linkedin_link, icon: "fab fa-linkedin-in", label: "linkedin", pid: "3002" },
+        profileResponse.twitter_link && { href: profileResponse.twitter_link, icon: "fab fa-x-twitter", label: "x/twitter", pid: "3003" },
+      ].filter(Boolean)
+    : defaultSocialLinks;
+
+  // If profile exists but no social links are set, use defaults
+  const links = socialLinks.length > 0 ? socialLinks : defaultSocialLinks;
 
   return (
     <footer
@@ -23,7 +45,7 @@ const Footer = () => {
         </div>
 
         <div className="flex justify-center gap-3 flex-wrap mb-6">
-          {socialLinks.map((link) => (
+          {links.map((link) => (
             <a
               key={link.pid}
               href={link.href}
