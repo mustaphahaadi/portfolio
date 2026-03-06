@@ -4,7 +4,7 @@ import { getExperiences } from "../services/api";
 const defaultExperiences = [
   {
     company: "ReStart Digital / Kumasi",
-    position: "Fo-Founder & CEO",
+    position: "Co-Founder & CEO",
     year: "2024-Present",
     description:
       "A startup building innovative software solutions, making technical decisions, and driving innovation in software solutions",
@@ -20,7 +20,7 @@ const defaultExperiences = [
   },
   {
     company: "IRID, KsTU",
-    position: "Reseach Associate",
+    position: "Research Associate",
     year: "May - Oct, 2025",
     description:
       "Led front-end development for multiple projects, implemented modern JavaScript frameworks, and optimized web performance.",
@@ -51,47 +51,91 @@ const ExperienceSection = () => {
   return (
     <section
       id="experience"
-      className="py-16 md:py-24 bg-gradient-to-b from-pink-50 to-white"
+      className="terminal-section"
+      style={{ borderTop: "1px solid var(--term-border)" }}
     >
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-16 md:mb-24">
-          <h1 className="font-bold text-gray-900 text-3xl md:text-4xl mb-4">
-            Professional Journey
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
-            My career milestones and key contributions in the tech industry
+        {/* Header */}
+        <div className="section-header-cmd">
+          <span style={{ color: "var(--term-cyan)" }}>haadi@cloud</span>
+          <span style={{ color: "var(--term-white)" }}>:</span>
+          <span style={{ color: "var(--term-amber)" }}>~</span>
+          <span style={{ color: "var(--term-white)" }}>$ </span>
+          <span style={{ color: "var(--term-white)" }}>history </span>
+          <span style={{ color: "var(--term-amber)" }}>| </span>
+          <span style={{ color: "var(--term-white)" }}>grep </span>
+          <span style={{ color: "var(--term-green)" }}>career</span>
+        </div>
+
+        <div className="text-center mb-8">
+          <p style={{ color: "var(--term-gray)", fontSize: "0.8rem" }}>
+            Career milestones and key contributions
           </p>
         </div>
 
-        <div className="space-y-8 md:space-y-12">
-          {experiences.map((exp, index) => (
-            <div key={index} className="group relative">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6 md:p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className="md:col-span-2 flex items-center justify-center">
-                  <div className="w-16 h-16 flex items-center justify-center bg-blue-50 rounded-full">
-                    <i className={`${exp.icon} text-blue-600 text-2xl`}></i>
+        {/* Experience as bash history */}
+        <div className="terminal-window">
+          <div className="terminal-titlebar">
+            <div className="terminal-dots">
+              <span className="terminal-dot red"></span>
+              <span className="terminal-dot yellow"></span>
+              <span className="terminal-dot green"></span>
+            </div>
+            <span className="terminal-title">history — career log</span>
+          </div>
+          <div className="terminal-body" style={{ padding: "16px 0" }}>
+            {experiences.map((exp, index) => (
+              <div
+                key={index}
+                className="log-entry"
+                style={{ display: "grid", gridTemplateColumns: "1fr", gap: "8px", marginLeft: "8px", marginRight: "8px" }}
+              >
+                <div className="flex flex-col md:flex-row md:items-start gap-4">
+                  {/* Line number & icon */}
+                  <div className="flex items-center gap-3 md:w-48 flex-shrink-0">
+                    <span style={{ color: "var(--term-gray-dim)", fontSize: "0.75rem", fontFamily: "var(--term-font)", minWidth: "32px" }}>
+                      {String(1000 + index + 1)}
+                    </span>
+                    <div
+                      style={{
+                        width: "36px",
+                        height: "36px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "rgba(0, 255, 65, 0.06)",
+                        borderRadius: "6px",
+                        border: "1px solid var(--term-green-dark)",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <i className={`${exp.icon}`} style={{ color: "var(--term-green)", fontSize: "0.85rem" }}></i>
+                    </div>
+                    <div className="md:hidden">
+                      <span style={{ color: "var(--term-amber)", fontSize: "0.75rem", fontWeight: "500" }}>{exp.year}</span>
+                    </div>
+                  </div>
+
+                  {/* Year (desktop) */}
+                  <div className="hidden md:block md:w-40 flex-shrink-0">
+                    <span style={{ color: "var(--term-amber)", fontSize: "0.8rem", fontWeight: "500" }}>{exp.year}</span>
+                    <div style={{ color: "var(--term-gray)", fontSize: "0.7rem", marginTop: "2px" }}>{exp.company}</div>
+                  </div>
+
+                  {/* Details */}
+                  <div className="flex-1">
+                    <div className="md:hidden" style={{ color: "var(--term-gray)", fontSize: "0.7rem", marginBottom: "4px" }}>{exp.company}</div>
+                    <h3 className="glow-green" style={{ color: "var(--term-green)", fontSize: "0.95rem", fontWeight: "600", marginBottom: "6px" }}>
+                      {exp.position}
+                    </h3>
+                    <p style={{ color: "var(--term-white)", fontSize: "0.8rem", lineHeight: "1.6" }}>
+                      {exp.description}
+                    </p>
                   </div>
                 </div>
-                <div className="md:col-span-3">
-                  <p className="text-blue-600 font-semibold mb-2">{exp.year}</p>
-                  <p className="text-gray-700 font-medium text-sm">
-                    {exp.company}
-                  </p>
-                </div>
-                <div className="md:col-span-7">
-                  <h3 className="text-gray-900 font-bold text-xl md:text-2xl mb-3">
-                    {exp.position}
-                  </h3>
-                  <p className="text-gray-600 text-base leading-relaxed">
-                    {exp.description}
-                  </p>
-                </div>
               </div>
-              {index !== experiences.length - 1 && (
-                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
