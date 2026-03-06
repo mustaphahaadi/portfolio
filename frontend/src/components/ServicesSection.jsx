@@ -3,22 +3,22 @@ import { getServices } from "../services/api";
 
 const defaultServices = [
   {
-    icon: "fas fa-chart-line",
-    title: "Software Developement",
+    icon: "fas fa-cloud",
+    title: "Cloud Infrastructure",
     description:
-      "I use react, vite, and tailwindcss to build modern, responsive web applications that are fast and user-friendly. I also utilize Python Django for backend development, ensuring robust and scalable server-side solutions.",
+      "Designing and managing cloud infrastructure on AWS and GCP. Implementing IaC with Terraform and CloudFormation for reproducible, scalable environments.",
   },
   {
-    icon: "fas fa-cubes",
-    title: "Skill Training & Tutoring",
+    icon: "fab fa-docker",
+    title: "Container Orchestration",
     description:
-      "I'm a good tutor and trainer, specializing in Python, JavaScript, React, and Django. I offer personalized training sessions to help individuals and teams enhance their skills and knowledge in these technologies.",
+      "Building and orchestrating containerized applications with Docker and Kubernetes. Implementing service meshes, auto-scaling, and zero-downtime deployments.",
   },
   {
-    icon: "fas fa-coffee",
-    title: "Cybersecurity",
+    icon: "fas fa-code-branch",
+    title: "CI/CD Pipeline Engineering",
     description:
-      "I am also a cybersecurity enthusiast, focusing on ethical hacking and penetration testing. Still learning, but I am passionate about securing systems and networks against potential threats.",
+      "Architecting end-to-end CI/CD pipelines with Jenkins, GitHub Actions, and GitLab CI. Automating testing, building, and deployment workflows for rapid delivery.",
   },
 ];
 
@@ -35,26 +35,69 @@ const ServicesSection = () => {
   const services = servicesArray?.length > 0 ? servicesArray : defaultServices;
 
   return (
-    <section className="py-12 md:py-16 bg-gradient-to-b from-indigo-50 to-white">
+    <section className="terminal-section" style={{ borderTop: "1px solid var(--term-border)" }}>
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6">
-        <h1 className="font-bold text-gray-800 text-2xl md:text-3xl mb-8 text-center">
-          My Services
-        </h1>
+        {/* Section Header */}
+        <div className="section-header-cmd">
+          <span style={{ color: "var(--term-cyan)" }}>haadi@cloud</span>
+          <span style={{ color: "var(--term-white)" }}>:</span>
+          <span style={{ color: "var(--term-amber)" }}>~</span>
+          <span style={{ color: "var(--term-white)" }}>$ </span>
+          <span style={{ color: "var(--term-white)" }}>cat </span>
+          <span style={{ color: "var(--term-green)" }}>services.conf</span>
+        </div>
+
+        {/* Service Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white px-6 py-8 md:px-8 md:py-10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              className="terminal-window"
+              style={{ cursor: "default" }}
             >
-              <div className="w-16 md:w-20 py-4 md:py-6 flex justify-center bg-gray-100 rounded-md mb-4">
-                <i className={`${service.icon} text-blue-600 text-2xl`}></i>
+              <div className="terminal-titlebar" style={{ padding: "8px 12px" }}>
+                <div className="terminal-dots" style={{ gap: "4px" }}>
+                  <span className="terminal-dot red" style={{ width: "8px", height: "8px" }}></span>
+                  <span className="terminal-dot yellow" style={{ width: "8px", height: "8px" }}></span>
+                  <span className="terminal-dot green" style={{ width: "8px", height: "8px" }}></span>
+                </div>
+                <span className="terminal-title" style={{ fontSize: "0.65rem" }}>
+                  service_{index + 1}.conf
+                </span>
               </div>
-              <h4 className="font-medium text-gray-700 text-lg mb-4">
-                {service.title}
-              </h4>
-              <p className="font-normal text-gray-500 text-md">
-                {service.description}
-              </p>
+              <div className="terminal-body" style={{ padding: "16px 20px" }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "rgba(0, 255, 65, 0.06)",
+                      borderRadius: "6px",
+                      border: "1px solid var(--term-green-dark)",
+                    }}
+                  >
+                    <i className={`${service.icon}`} style={{ color: "var(--term-green)", fontSize: "1rem" }}></i>
+                  </div>
+                  <span style={{ color: "var(--term-amber)", fontSize: "0.7rem", fontWeight: "600" }}>
+                    [SERVICE_{String(index + 1).padStart(2, '0')}]
+                  </span>
+                </div>
+
+                <h4 className="glow-green" style={{ color: "var(--term-green)", fontSize: "0.95rem", fontWeight: "600", marginBottom: "10px" }}>
+                  {service.title}
+                </h4>
+
+                <p style={{ color: "var(--term-gray)", fontSize: "0.8rem", lineHeight: "1.6" }}>
+                  {service.description}
+                </p>
+
+                <div style={{ marginTop: "12px", fontSize: "0.7rem", color: "var(--term-green-dark)" }}>
+                  <span style={{ color: "var(--term-green-dim)" }}>status:</span> <span style={{ color: "#28c840" }}>● active</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -64,4 +107,3 @@ const ServicesSection = () => {
 };
 
 export default ServicesSection;
-//

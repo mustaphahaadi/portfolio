@@ -13,14 +13,13 @@ const defaultEducationItems = [
     year: "2017 – 2020",
     institution: "Ghanaian-German Snr High",
     description:
-      "A pure eneral pure science with biology, chemistry, physics and elective maths.",
+      "A pure general science with biology, chemistry, physics and elective maths.",
     location: "Tepa, Ghana",
   },
   {
-    year: "- – 2017",
+    year: "– 2017",
     institution: "Tuffour Red Sox Int.",
-    description:
-      "Nusery & Basic Education",
+    description: "Nursery & Basic Education",
     location: "Bawku, Ghana",
   },
 ];
@@ -40,46 +39,66 @@ const EducationSection = () => {
   return (
     <section
       id="education"
-      className="py-20 bg-gradient-to-b from-yellow-50 to-white"
+      className="terminal-section"
+      style={{ borderTop: "1px solid var(--term-border)" }}
     >
-      <div className="container max-w-screen-xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h1 className="font-semibold text-gray-800 text-3xl md:text-4xl mb-3">
-            Education
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            My academic journey and professional certifications that shaped my
-            expertise
+      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <div className="section-header-cmd">
+          <span style={{ color: "var(--term-cyan)" }}>haadi@cloud</span>
+          <span style={{ color: "var(--term-white)" }}>:</span>
+          <span style={{ color: "var(--term-amber)" }}>~</span>
+          <span style={{ color: "var(--term-white)" }}>$ </span>
+          <span style={{ color: "var(--term-white)" }}>cat </span>
+          <span style={{ color: "var(--term-green)" }}>/etc/education.log</span>
+        </div>
+
+        <div className="text-center mb-8">
+          <p style={{ color: "var(--term-gray)", fontSize: "0.8rem" }}>
+            Academic journey and professional certifications
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Education Entries as Log Items */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {educationItems.map((item, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                  {item.year}
-                </span>
-                <span className="text-sm text-gray-500">
-                  <i className="fas fa-map-marker-alt mr-1"></i>
-                  {item.location}
+            <div key={index} className="terminal-window">
+              <div className="terminal-titlebar" style={{ padding: "8px 12px" }}>
+                <div className="terminal-dots" style={{ gap: "4px" }}>
+                  <span className="terminal-dot red" style={{ width: "8px", height: "8px" }}></span>
+                  <span className="terminal-dot yellow" style={{ width: "8px", height: "8px" }}></span>
+                  <span className="terminal-dot green" style={{ width: "8px", height: "8px" }}></span>
+                </div>
+                <span className="terminal-title" style={{ fontSize: "0.65rem" }}>
+                  education_{index + 1}.log
                 </span>
               </div>
-              <h3 className="font-bold text-gray-800 text-xl mb-3">
-                {item.institution}
-              </h3>
-              <p className="text-gray-600 mb-6">{item.description}</p>
-              <div className="border-t pt-4">
-                <a
-                  href="#"
-                  className="text-blue-600 hover:text-blue-700 font-medium flex items-center"
-                >
-                  View Certificate
-                  <i className="fas fa-arrow-right ml-2"></i>
-                </a>
+              <div className="terminal-body" style={{ padding: "16px 20px" }}>
+                {/* Log timestamp */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "6px" }}>
+                  <span className="log-level info" style={{ fontSize: "0.65rem" }}>
+                    <i className="fas fa-graduation-cap" style={{ marginRight: "4px" }}></i>
+                    EDUCATION
+                  </span>
+                  <span style={{ color: "var(--term-amber)", fontSize: "0.7rem", fontWeight: "500" }}>
+                    {item.year}
+                  </span>
+                </div>
+
+                <h3 className="glow-green" style={{ color: "var(--term-green)", fontSize: "1rem", fontWeight: "600", marginBottom: "8px" }}>
+                  {item.institution}
+                </h3>
+
+                <p style={{ color: "var(--term-white)", fontSize: "0.8rem", lineHeight: "1.6", marginBottom: "12px" }}>
+                  {item.description}
+                </p>
+
+                <div style={{ borderTop: "1px solid var(--term-border)", paddingTop: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
+                  <i className="fas fa-map-marker-alt" style={{ color: "var(--term-cyan)", fontSize: "0.65rem" }}></i>
+                  <span style={{ color: "var(--term-gray)", fontSize: "0.75rem" }}>
+                    # host: {item.location}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
