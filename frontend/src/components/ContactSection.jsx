@@ -16,11 +16,11 @@ const ContactSection = () => {
 
     try {
       await submitContact(formData);
-      toast.success("Message sent successfully!");
+      toast.success("> Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Contact form error:", error);
-      toast.error(`Failed to send message: ${error.message}. Please try again.`);
+      toast.error(`> Error: ${error.message}. Retry.`);
     } finally {
       setIsSubmitting(false);
     }
@@ -33,151 +33,195 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className="py-16 md:py-24 bg-gradient-to-b from-blue-50 to-white"
+      className="terminal-section"
+      style={{ borderTop: "1px solid var(--term-border)" }}
     >
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="font-bold text-gray-900 text-3xl md:text-4xl mb-4">
-            {"Let's Connect"}
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
-            Have a project in mind or just want to say hi? {"I'd"} love to hear
-            from you!
+        {/* Header */}
+        <div className="section-header-cmd">
+          <span style={{ color: "var(--term-cyan)" }}>haadi@cloud</span>
+          <span style={{ color: "var(--term-white)" }}>:</span>
+          <span style={{ color: "var(--term-amber)" }}>~</span>
+          <span style={{ color: "var(--term-white)" }}>$ </span>
+          <span style={{ color: "var(--term-white)" }}>ssh </span>
+          <span style={{ color: "var(--term-green)" }}>haadi@contact</span>
+        </div>
+
+        <div className="text-center mb-8">
+          <p style={{ color: "var(--term-gray)", fontSize: "0.8rem" }}>
+            Establishing secure connection... <span style={{ color: "#28c840" }}>Connected.</span>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Contact Form */}
-          <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 mb-2 text-left"
-                >
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                  placeholder="Mustapha Haadi Bugnaba"
-                  required
-                />
+          <div className="terminal-window">
+            <div className="terminal-titlebar">
+              <div className="terminal-dots">
+                <span className="terminal-dot red"></span>
+                <span className="terminal-dot yellow"></span>
+                <span className="terminal-dot green"></span>
               </div>
+              <span className="terminal-title">compose-message — bash</span>
+            </div>
+            <div className="terminal-body">
+              <form onSubmit={handleSubmit}>
+                <div style={{ marginBottom: "16px" }}>
+                  <label
+                    htmlFor="name"
+                    style={{ display: "block", color: "var(--term-amber)", fontSize: "0.75rem", marginBottom: "6px", fontFamily: "var(--term-font)" }}
+                  >
+                    # your_name
+                  </label>
+                  <div className="input-wrapper">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="terminal-input"
+                      placeholder="John Doe"
+                      required
+                    />
+                  </div>
+                </div>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-2 text-left"
+                <div style={{ marginBottom: "16px" }}>
+                  <label
+                    htmlFor="email"
+                    style={{ display: "block", color: "var(--term-amber)", fontSize: "0.75rem", marginBottom: "6px", fontFamily: "var(--term-font)" }}
+                  >
+                    # email_address
+                  </label>
+                  <div className="input-wrapper">
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="terminal-input"
+                      placeholder="john@example.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: "20px" }}>
+                  <label
+                    htmlFor="message"
+                    style={{ display: "block", color: "var(--term-amber)", fontSize: "0.75rem", marginBottom: "6px", fontFamily: "var(--term-font)" }}
+                  >
+                    # message_body
+                  </label>
+                  <div className="input-wrapper textarea">
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows="5"
+                      className="terminal-input"
+                      style={{ resize: "vertical", paddingTop: "10px" }}
+                      placeholder="Hi, I'd like to discuss..."
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="terminal-btn"
+                  style={{
+                    width: "100%",
+                    justifyContent: "center",
+                    opacity: isSubmitting ? 0.6 : 1,
+                    cursor: isSubmitting ? "not-allowed" : "pointer",
+                  }}
                 >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                  placeholder="mustaphahaadi04@gmail.com"
-                  required
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 mb-2 text-left"
-                >
-                  Your Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows="5"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                  placeholder="Hi there, I'd like to talk about..."
-                  required
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-400"
-              >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
-
-
-            </form>
+                  <span style={{ color: "var(--term-cyan)" }}>&gt;</span>
+                  <span>{isSubmitting ? 'sending...' : 'send_message --priority high'}</span>
+                  {!isSubmitting && <i className="fas fa-paper-plane" style={{ fontSize: "0.7rem" }}></i>}
+                  {isSubmitting && <i className="fas fa-spinner fa-spin" style={{ fontSize: "0.7rem" }}></i>}
+                </button>
+              </form>
+            </div>
           </div>
 
           {/* Contact Information */}
-          <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">
-              Contact Information
-            </h2>
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-blue-50 rounded-lg">
-                  <i className="fas fa-map-marker-alt text-blue-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-medium text-gray-700 mb-1">Location</h3>
-                  <p className="text-gray-600">Kumasi, Ghana</p>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Open to remote work worldwide
-                  </p>
-                </div>
+          <div className="terminal-window">
+            <div className="terminal-titlebar">
+              <div className="terminal-dots">
+                <span className="terminal-dot red"></span>
+                <span className="terminal-dot yellow"></span>
+                <span className="terminal-dot green"></span>
+              </div>
+              <span className="terminal-title">env — contact variables</span>
+            </div>
+            <div className="terminal-body">
+              <div style={{ fontSize: "0.75rem", color: "var(--term-gray)", marginBottom: "16px" }}>
+                <span style={{ color: "var(--term-cyan)" }}>$</span> printenv | grep CONTACT
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-blue-50 rounded-lg">
-                  <i className="fas fa-envelope text-blue-600"></i>
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                {/* Location */}
+                <div className="log-entry" style={{ marginBottom: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                    <i className="fas fa-map-marker-alt" style={{ color: "var(--term-cyan)", fontSize: "0.85rem", width: "16px", textAlign: "center" }}></i>
+                    <span style={{ color: "var(--term-amber)", fontSize: "0.75rem", fontWeight: "600" }}>LOCATION</span>
+                  </div>
+                  <div style={{ paddingLeft: "26px" }}>
+                    <span style={{ color: "var(--term-green)", fontSize: "0.85rem" }}>Kumasi, Ghana</span>
+                    <div style={{ color: "var(--term-gray)", fontSize: "0.7rem", marginTop: "2px" }}>
+                      # Open to remote work worldwide
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-medium text-gray-700 mb-1">Email</h3>
-                  <p className="text-gray-600">mustaphahaadi04@gmail.com</p>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Typically responds within 24 hours
-                  </p>
-                </div>
-              </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-blue-50 rounded-lg">
-                  <i className="fas fa-phone-alt text-blue-600"></i>
+                {/* Email */}
+                <div className="log-entry" style={{ marginBottom: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                    <i className="fas fa-envelope" style={{ color: "var(--term-cyan)", fontSize: "0.85rem", width: "16px", textAlign: "center" }}></i>
+                    <span style={{ color: "var(--term-amber)", fontSize: "0.75rem", fontWeight: "600" }}>EMAIL</span>
+                  </div>
+                  <div style={{ paddingLeft: "26px" }}>
+                    <a href="mailto:mustaphahaadi04@gmail.com" style={{ color: "var(--term-green)", fontSize: "0.85rem" }}>
+                      mustaphahaadi04@gmail.com
+                    </a>
+                    <div style={{ color: "var(--term-gray)", fontSize: "0.7rem", marginTop: "2px" }}>
+                      # Typically responds within 24 hours
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-medium text-gray-700 mb-1">Phone</h3>
-                  <p className="text-gray-600">+233 (0) 548-367-637</p>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Available Mon-Fri, 9am-5pm EST
-                  </p>
-                </div>
-              </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-blue-50 rounded-lg">
-                  <i className="fas fa-calendar-alt text-blue-600"></i>
+                {/* Phone */}
+                <div className="log-entry" style={{ marginBottom: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                    <i className="fas fa-phone-alt" style={{ color: "var(--term-cyan)", fontSize: "0.85rem", width: "16px", textAlign: "center" }}></i>
+                    <span style={{ color: "var(--term-amber)", fontSize: "0.75rem", fontWeight: "600" }}>PHONE</span>
+                  </div>
+                  <div style={{ paddingLeft: "26px" }}>
+                    <span style={{ color: "var(--term-green)", fontSize: "0.85rem" }}>+233 (0) 548-367-637</span>
+                    <div style={{ color: "var(--term-gray)", fontSize: "0.7rem", marginTop: "2px" }}>
+                      # Available Mon-Fri, 9am-5pm GMT
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-medium text-gray-700 mb-1">
-                    Schedule Meeting
-                  </h3>
-                  <a
-                    href="#"
-                    className="text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    Book a call
-                  </a>
+
+                {/* Schedule */}
+                <div className="log-entry" style={{ marginBottom: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                    <i className="fas fa-calendar-alt" style={{ color: "var(--term-cyan)", fontSize: "0.85rem", width: "16px", textAlign: "center" }}></i>
+                    <span style={{ color: "var(--term-amber)", fontSize: "0.75rem", fontWeight: "600" }}>SCHEDULE</span>
+                  </div>
+                  <div style={{ paddingLeft: "26px" }}>
+                    <a href="#" className="terminal-btn cyan" style={{ padding: "4px 12px", fontSize: "0.7rem" }}>
+                      <i className="fas fa-video" style={{ fontSize: "0.6rem" }}></i>
+                      <span>book_call --schedule</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
