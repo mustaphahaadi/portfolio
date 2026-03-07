@@ -29,17 +29,32 @@ A modern portfolio website built with Django backend and React frontend, showcas
 
 ## Backend API Models
 
+### Profile
+
+- `name`: CharField (max_length=100)
+- `roles`: JSONField
+- `bio`: TextField
+- `profile_picture`: ImageField
+- `resume`: FileField
+- `github_link`: URLField
+- `linkedin_link`: URLField
+- `twitter_link`: URLField
+
 ### Project
 
 - `number`: CharField (max_length=10)
 - `title`: CharField (max_length=200)
 - `description`: TextField
 - `icon`: CharField (max_length=50)
+- `github_url`: URLField
+- `live_url`: URLField
 
 ### Tool
 
 - `name`: CharField (max_length=50)
 - `icon`: CharField (max_length=50)
+- `version`: CharField (max_length=30)
+- `status`: CharField (max_length=20, choices)
 
 ### Experience
 
@@ -62,13 +77,31 @@ A modern portfolio website built with Django backend and React frontend, showcas
 - `title`: CharField (max_length=200)
 - `description`: TextField
 
+### Testimonial
+
+- `name`: CharField (max_length=100)
+- `position`: CharField (max_length=200)
+- `text`: TextField
+- `avatar`: URLField
+- `created_at`: DateTimeField
+
+### Contact
+
+- `name`: CharField (max_length=100)
+- `email`: EmailField
+- `message`: TextField
+- `created_at`: DateTimeField
+
 ## API Endpoints
 
+- Profile: `http://127.0.0.1:8000/api/profile/`
 - Projects: `http://127.0.0.1:8000/api/projects/`
 - Tools: `http://127.0.0.1:8000/api/tools/`
 - Experiences: `http://127.0.0.1:8000/api/experiences/`
 - Education: `http://127.0.0.1:8000/api/education/`
 - Services: `http://127.0.0.1:8000/api/services/`
+- Testimonials: `http://127.0.0.1:8000/api/testimonials/`
+- Contact: `http://127.0.0.1:8000/api/contact/`
 
 ## Setup Instructions
 
@@ -124,4 +157,9 @@ Access the admin panel at `http://127.0.0.1:8000/admin/` to manage content.
 
 ## Environment Variables
 
-Create a `.env` file in the backend directory with your environment variables
+Create a `.env` file in the backend directory with your environment variables.
+
+## Deployment
+
+- **Frontend**: Configured for deployment on [Vercel](https://vercel.com/).
+- **Backend**: Configured for deployment on [Railway](https://railway.app/).
