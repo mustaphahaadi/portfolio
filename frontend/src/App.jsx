@@ -20,12 +20,12 @@ const App = () => {
 
       <Navbar />
       <HeroSection />
-      <ServicesSection />
-      <PortfolioSection />
-      <EducationSection />
       <ExperienceSection />
+      <PortfolioSection />
       <ToolsSection />
+      <EducationSection />
       <CertificationsSection />
+      <ServicesSection />
       <TestimonialSection />
       <ContactSection />
       <Footer />
