@@ -23,6 +23,7 @@ const Navbar = () => {
     { href: "#hero", label: "about", icon: "fas fa-user" },
     { href: "#experience", label: "experience", icon: "fas fa-briefcase" },
     { href: "#portfolio", label: "projects", icon: "fas fa-code" },
+    { href: "#certifications", label: "certifications", icon: "fas fa-certificate" },
     { href: "#testimonials", label: "testimonials", icon: "fas fa-quote-left" },
     { href: "#contact", label: "contact", icon: "fas fa-envelope" },
   ];

@@ -93,3 +93,15 @@ class Contact(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+class Certification(models.Model):
+    name = models.CharField(max_length=200)
+    organization = models.CharField(max_length=200)
+    issue_date = models.CharField(max_length=50, blank=True, null=True, help_text="e.g., Aug 2023")
+    expiration_date = models.CharField(max_length=50, blank=True, null=True, help_text="e.g., Aug 2026 or No expiration")
+    credential_id = models.CharField(max_length=100, blank=True, null=True)
+    credential_url = models.URLField(blank=True, null=True, help_text="URL to credential verification")
+    icon = models.CharField(max_length=50, default="fas fa-certificate", help_text="FontAwesome icon class")
+
+    def __str__(self):
+        return f"{self.name} by {self.organization}"

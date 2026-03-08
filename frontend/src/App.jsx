@@ -5,6 +5,7 @@ import PortfolioSection from "./components/PortfolioSection";
 import EducationSection from "./components/EducationSection";
 import ExperienceSection from "./components/ExperienceSection";
 import ToolsSection from "./components/ToolsSection";
+import CertificationsSection from "./components/CertificationsSection";
 import TestimonialSection from "./components/TestimonialSection";
 import Footer from "./components/Footer";
 import ContactSection from "./components/ContactSection";
@@ -24,6 +25,7 @@ const App = () => {
       <EducationSection />
       <ExperienceSection />
       <ToolsSection />
+      <CertificationsSection />
       <TestimonialSection />
       <ContactSection />
       <Footer />

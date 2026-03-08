@@ -8,7 +8,7 @@ from django.views.decorators.cache import cache_page
 import logging
 
 logger = logging.getLogger(__name__)
-from .models import Profile, Project, Tool, Experience, Education, Service, Testimonial, Contact
+from .models import Profile, Project, Tool, Experience, Education, Service, Testimonial, Contact, Certification
 from .serializers import (
     ProfileSerializer,
     ProjectSerializer, 
@@ -17,7 +17,8 @@ from .serializers import (
     EducationSerializer, 
     ServiceSerializer,
     TestimonialSerializer,
-    ContactSerializer
+    ContactSerializer,
+    CertificationSerializer
 )
 
 
@@ -93,6 +94,13 @@ class TestimonialViewSet(viewsets.ReadOnlyModelViewSet):
     """Testimonials — read-only for public API."""
     queryset = Testimonial.objects.all()
     serializer_class = TestimonialSerializer
+
+@method_decorator(cache_page(60 * 5), name='dispatch')
+class CertificationViewSet(viewsets.ModelViewSet):
+    queryset = Certification.objects.all().order_by('-id')
+    serializer_class = CertificationSerializer
+    filterset_fields = ['organization']
+    search_fields = ['name', 'organization']
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()

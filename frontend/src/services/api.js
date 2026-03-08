@@ -26,6 +26,7 @@ export const getExperiences = (params = {}) => api.get("/experiences/", { params
 export const getEducation = (params = {}) => api.get("/education/", { params });
 export const getServices = (params = {}) => api.get("/services/", { params });
 export const getTestimonials = (params = {}) => api.get("/testimonials/", { params });
+export const getCertifications = (params = {}) => api.get("/certifications/", { params });
 export const submitContact = (data) => api.post("/contact/", data);
 
 export default api;

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Project, Tool, Experience, Education, Service, Testimonial, Contact
+from .models import Profile, Project, Tool, Experience, Education, Service, Testimonial, Contact, Certification
 
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -50,6 +50,10 @@ class ExperienceAdmin(admin.ModelAdmin):
     search_fields = ('position', 'company')
 
 
+class CertificationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'organization', 'issue_date')
+    search_fields = ('name', 'organization')
+
 # Register models
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Project, ProjectAdmin)
@@ -59,3 +63,4 @@ admin.site.register(Education)
 admin.site.register(Service)
 admin.site.register(Testimonial, TestimonialAdmin)
 admin.site.register(Contact, ContactAdmin)
+admin.site.register(Certification, CertificationAdmin)
