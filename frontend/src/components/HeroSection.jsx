@@ -11,6 +11,14 @@ const ASCII_ART = `
   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝
 `;
 
+const FALLBACK_PROFILE = {
+  name: "Mustapha Haadi Bugnaba",
+  roles: ["DevOps Engineer", "Cloud Architect", "Infrastructure Specialist"],
+  bio: "I architect and automate cloud infrastructure, build robust CI/CD pipelines, and orchestrate containers at scale. Passionate about reliability, scalability, and the art of keeping systems running smoothly. AWS, Docker, Kubernetes, Terraform — I speak fluent infrastructure.",
+  profile_picture: null,
+};
+const DEFAULT_ROLES = ["DevOps Engineer"];
+
 const HeroSection = () => {
   const { data: profileResponse, isLoading } = useQuery({
     queryKey: ['profile'],
@@ -20,15 +28,10 @@ const HeroSection = () => {
     }
   });
 
-  const profile = profileResponse || {
-    name: "Mustapha Haadi Bugnaba",
-    roles: ["DevOps Engineer", "Cloud Architect", "Infrastructure Specialist"],
-    bio: "I architect and automate cloud infrastructure, build robust CI/CD pipelines, and orchestrate containers at scale. Passionate about reliability, scalability, and the art of keeping systems running smoothly. AWS, Docker, Kubernetes, Terraform — I speak fluent infrastructure.",
-    profile_picture: null,
-  };
+  const profile = profileResponse || FALLBACK_PROFILE;
 
   const [typedText, setTypedText] = useState("");
-  const roles = profile.roles && profile.roles.length > 0 ? profile.roles : ["DevOps Engineer"];
+  const roles = profile.roles && profile.roles.length > 0 ? profile.roles : DEFAULT_ROLES;
   const [roleIndex, setRoleIndex] = useState(0);
   const [showBoot, setShowBoot] = useState(true);
 
@@ -39,15 +42,22 @@ const HeroSection = () => {
 
   useEffect(() => {
     let currentIndex = 0;
-    let currentRole = roles[roleIndex];
+    const safeIndex = roleIndex % roles.length;
+    let currentRole = roles[safeIndex];
+
+    if (!currentRole) {
+      currentRole = "Loading...";
+    }
+
+    let timeoutId;
 
     const typeText = () => {
       if (currentIndex <= currentRole.length) {
         setTypedText(currentRole.slice(0, currentIndex));
         currentIndex++;
-        setTimeout(typeText, 80);
+        timeoutId = setTimeout(typeText, 80);
       } else {
-        setTimeout(() => {
+        timeoutId = setTimeout(() => {
           setRoleIndex((prev) => (prev + 1) % roles.length);
           currentIndex = 0;
         }, 2500);
@@ -55,7 +65,9 @@ const HeroSection = () => {
     };
 
     typeText();
-  }, [roleIndex]);
+
+    return () => clearTimeout(timeoutId);
+  }, [roleIndex, roles]);
 
   const handleClick = (e) => {
     e.preventDefault();
