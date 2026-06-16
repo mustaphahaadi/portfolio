@@ -4,7 +4,9 @@ import { getProfile } from "../services/api";
 const defaultSocialLinks = [
   { href: "https://www.github.com/mustaphahaadi", icon: "fab fa-github", label: "github", pid: "3001" },
   { href: "https://www.linkedin.com/mustaphahaadi", icon: "fab fa-linkedin-in", label: "linkedin", pid: "3002" },
-  { href: "https://www.x.com/RealCodeo", icon: "fab fa-x-twitter", label: "x/twitter", pid: "3003" },
+  { href: "https://www.x.com/mustaphahaadiX", icon: "fab fa-x-twitter", label: "x/twitter", pid: "3003" },
+
+
 ];
 
 const Footer = () => {
@@ -19,10 +21,10 @@ const Footer = () => {
   // Build social links from profile API data, fallback to defaults
   const socialLinks = profileResponse
     ? [
-        profileResponse.github_link && { href: profileResponse.github_link, icon: "fab fa-github", label: "github", pid: "3001" },
-        profileResponse.linkedin_link && { href: profileResponse.linkedin_link, icon: "fab fa-linkedin-in", label: "linkedin", pid: "3002" },
-        profileResponse.twitter_link && { href: profileResponse.twitter_link, icon: "fab fa-x-twitter", label: "x/twitter", pid: "3003" },
-      ].filter(Boolean)
+      profileResponse.github_link && { href: profileResponse.github_link, icon: "fab fa-github", label: "github", pid: "3001" },
+      profileResponse.linkedin_link && { href: profileResponse.linkedin_link, icon: "fab fa-linkedin-in", label: "linkedin", pid: "3002" },
+      profileResponse.twitter_link && { href: profileResponse.twitter_link, icon: "fab fa-x-twitter", label: "x/twitter", pid: "3003" },
+    ].filter(Boolean)
     : defaultSocialLinks;
 
   // If profile exists but no social links are set, use defaults
