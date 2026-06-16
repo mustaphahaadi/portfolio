@@ -13,11 +13,11 @@ const ASCII_ART = `
 
 const FALLBACK_PROFILE = {
   name: "Mustapha Haadi Bugnaba",
-  roles: ["DevOps Engineer", "AWS Cloud Practitioner", "Continously Learning DevOps Advocate"],
+  roles: ["Cloud & DevOps", "Continously Learning Advocate"],
   bio: "Junior Cloud & DevOps Engineer and AWS Certified Cloud Practitioner with a First-Class BTech in Computer Technology. Hands-on experience deploying and managing cloud infrastructure on AWS (EC2, S3, VPC, IAM, CloudFormation, ALB/ASG), containerising applications with Docker, building CI/CD pipelines with GitHub Actions, and configuring Linux servers with Nginx, SSL, and systemd. Completed the AWS re:Start programme and the KodeKloud 100 Days of Cloud challenge. Active open-source contributor (huggingface/agents-course, 26.9k+ stars). Recognised technical educator with 300+ students trained in programming, cloud computing, and Linux — currently developing parallel training programmes at ReStartDigital.",
   profile_picture: null,
 };
-const DEFAULT_ROLES = ["DevOps Engineer"];
+const DEFAULT_ROLES = ["Cloud & DevOps"];
 
 const HeroSection = () => {
   const { data: profileResponse, isLoading } = useQuery({
