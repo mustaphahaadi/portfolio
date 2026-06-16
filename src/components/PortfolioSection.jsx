@@ -70,8 +70,11 @@ const PortfolioSection = () => {
     }
   });
 
-  const projects = Array.isArray(apiProjects) ? apiProjects : (apiProjects?.results || Projects);
-  const error = queryError ? queryError.message : null;
+  // When the API fails, apiProjects is undefined — fall back to the hardcoded Projects list.
+  const projects = Array.isArray(apiProjects)
+    ? apiProjects
+    : (apiProjects?.results ?? (queryError ? Projects : Projects));
+  const error = queryError && !apiProjects ? queryError.message : null;
 
   const handleViewProject = (project) => {
     setSelectedProject(project);
@@ -99,40 +102,7 @@ const PortfolioSection = () => {
     );
   }
 
-  if (error) {
-    return (
-      <section id="portfolio" className="terminal-section" style={{ borderTop: "1px solid var(--term-border)" }}>
-        <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 text-center">
-          <div className="section-header-cmd">
-            <span style={{ color: "var(--term-cyan)" }}>$</span>
-            <span style={{ color: "var(--term-white)" }}> ls -la </span>
-            <span style={{ color: "var(--term-green)" }}>~/projects/</span>
-          </div>
-          <div
-            style={{
-              padding: "16px",
-              background: "rgba(255, 51, 51, 0.05)",
-              border: "1px solid rgba(255, 51, 51, 0.2)",
-              borderRadius: "4px",
-              marginTop: "16px",
-            }}
-          >
-            <p style={{ color: "var(--term-red)", fontSize: "0.85rem" }}>
-              <i className="fas fa-exclamation-triangle" style={{ marginRight: "8px" }}></i>
-              Error: {error}
-            </p>
-            <button
-              onClick={fetchProjects}
-              className="terminal-btn"
-              style={{ marginTop: "12px", borderColor: "var(--term-red-dim)", color: "var(--term-red)" }}
-            >
-              <span>&gt;</span> retry --force
-            </button>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // No full-page error — we always render the fallback projects.
 
   return (
     <section id="portfolio" className="terminal-section" style={{ borderTop: "1px solid var(--term-border)" }}>
