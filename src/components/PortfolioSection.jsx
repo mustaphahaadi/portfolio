@@ -62,7 +62,7 @@ const PortfolioSection = () => {
 
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const { data: apiProjects, isLoading: loading, error: queryError, refetch: fetchProjects } = useQuery({
+  const { data: apiProjects, isLoading: loading } = useQuery({
     queryKey: ['projects'],
     queryFn: async () => {
       const response = await getProjects();
@@ -73,8 +73,7 @@ const PortfolioSection = () => {
   // When the API fails, apiProjects is undefined — fall back to the hardcoded Projects list.
   const projects = Array.isArray(apiProjects)
     ? apiProjects
-    : (apiProjects?.results ?? (queryError ? Projects : Projects));
-  const error = queryError && !apiProjects ? queryError.message : null;
+    : (apiProjects?.results ?? Projects);
 
   const handleViewProject = (project) => {
     setSelectedProject(project);
