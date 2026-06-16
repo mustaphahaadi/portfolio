@@ -7,24 +7,57 @@ const PortfolioSection = () => {
     {
       id: 1,
       number: "01",
-      title: "Blockchain-Based Medical Records System (EmersBlock)",
-      description: "A blockchain-based system for secure and efficient medical record management. This is my final year project at KsTU. I'm currently working on it.",
-      icon: "fas fa-hospital"
+      title: "FastAPI CI/CD Pipeline on AWS EC2",
+      description: "Built a multi-stage Dockerized FastAPI application with a full automated CI/CD pipeline using GitHub Actions — test stage, Docker image build and push to Docker Hub, and SSH-based deployment to AWS EC2 on every merge to main. Configured Nginx as a reverse proxy, SSL/TLS termination, and systemd for process management.",
+      icon: "fas fa-infinity",
+      github_url: "https://github.com/mustaphahaadi/",
+      live_url: null,
     },
     {
       id: 2,
       number: "02",
-      title: "School Management System",
-      description: "A comprehensive platform for managing school operations, including student enrollment, attendance, and grading. It is for basic school management.",
-      icon: "fas fa-briefcase"
+      title: "AWS Cloud Infrastructure Deployment",
+      description: "Architected and deployed scalable, fault-tolerant cloud infrastructure using AWS — EC2 with ALB and Auto Scaling Groups, S3 with lifecycle policies, and CloudFormation IaC for reproducible deployments. Implemented VPC with public/private subnets, security groups, and IAM roles following the principle of least privilege; integrated GuardDuty and Amazon Inspector for threat detection.",
+      icon: "fas fa-cloud",
+      github_url: "https://github.com/mustaphahaadi/",
+      live_url: null,
     },
     {
       id: 3,
       number: "03",
-      title: "SaaS Cybersecurity Platform (CyberRest)",
-      description: "A SaaS platform for cybersecurity solutions, including threat detection, vulnerability assessment, and incident response.",
-      icon: "fas fa-shield-alt"
-    }
+      title: "Anomaly Detection System — Multi-Container Docker Setup",
+      description: "Designed and deployed a multi-container Docker environment consisting of an Nginx reverse proxy, Nextcloud instance, and a custom Python anomaly detection daemon — demonstrating real-world container orchestration and service integration.",
+      icon: "fas fa-docker",
+      github_url: "https://github.com/mustaphahaadi/",
+      live_url: null,
+    },
+    {
+      id: 4,
+      number: "04",
+      title: "Django Authentication & Authorisation System",
+      description: "Reusable Django auth module implementing secure login, role-based access control (RBAC), and session management — designed as a plug-in foundation for Django projects.",
+      icon: "fab fa-python",
+      github_url: "https://github.com/mustaphahaadi/",
+      live_url: null,
+    },
+    {
+      id: 5,
+      number: "05",
+      title: "Internal Package Management Simulation",
+      description: "Simulated a corporate air-gapped environment where servers install packages from a controlled internal repository — demonstrating enterprise DevOps practices and Linux server administration.",
+      icon: "fas fa-server",
+      github_url: "https://github.com/mustaphahaadi/",
+      live_url: null,
+    },
+    {
+      id: 6,
+      number: "06",
+      title: "RAG Application — DigitalOcean Gradient AI Hackathon",
+      description: "Built and deployed a Retrieval-Augmented Generation application to the DigitalOcean Gradient AI Hackathon as part of the blackbox24 collaborative team.",
+      icon: "fas fa-brain",
+      github_url: "https://github.com/mustaphahaadi/",
+      live_url: null,
+    },
   ];
 
   const [selectedProject, setSelectedProject] = useState(null);
