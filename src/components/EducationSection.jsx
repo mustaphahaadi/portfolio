@@ -20,7 +20,6 @@ const defaultEducationItems = [
     year: "– 2017",
     institution: "Tuffour Red Sox Int.",
     description: "Nursery & Basic Education",
-    location: "Bawku, Ghana",
   },
 ];
 
