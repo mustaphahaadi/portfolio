@@ -2,18 +2,18 @@ import { useQuery } from "@tanstack/react-query";
 import { getTools } from "../services/api";
 
 const defaultTools = [
-  { name: "Docker", icon: "fab fa-docker", version: "24.0.7", status: "expert" },
-  { name: "Kubernetes", icon: "fas fa-dharmachakra", version: "1.29", status: "proficient" },
-  { name: "AWS", icon: "fab fa-aws", version: "cli-2.x", status: "expert" },
-  { name: "Terraform", icon: "fas fa-cubes", version: "1.7.x", status: "proficient" },
-  { name: "Linux", icon: "fab fa-linux", version: "6.x", status: "expert" },
-  { name: "Git", icon: "fab fa-git-alt", version: "2.43", status: "expert" },
-  { name: "Python", icon: "fab fa-python", version: "3.12", status: "expert" },
-  { name: "JavaScript", icon: "fab fa-js", version: "ES2024", status: "proficient" },
-  { name: "React", icon: "fab fa-react", version: "18.x", status: "proficient" },
-  { name: "GitHub Actions", icon: "fab fa-github", version: "v4", status: "proficient" },
-  { name: "Jenkins", icon: "fas fa-cogs", version: "2.4x", status: "proficient" },
-  { name: "Node.js", icon: "fab fa-node", version: "20.x", status: "proficient" },
+  { name: "AWS (Cloud)", icon: "fab fa-aws", version: "EC2/S3/Lambda/VPC", status: "expert" },
+  { name: "Docker & Swarm", icon: "fab fa-docker", version: "v26.x", status: "expert" },
+  { name: "Kubernetes", icon: "fas fa-dharmachakra", version: "v1.29", status: "proficient" },
+  { name: "Terraform & IaC", icon: "fas fa-cubes", version: "v1.7.x", status: "expert" },
+  { name: "Linux & Bash", icon: "fab fa-linux", version: "Ubuntu/Debian", status: "expert" },
+  { name: "GitHub Actions", icon: "fab fa-github", version: "CI/CD Pipelines", status: "expert" },
+  { name: "Nginx & Systemd", icon: "fas fa-server", version: "Reverse Proxy/SSL", status: "expert" },
+  { name: "Python (FastAPI/Django)", icon: "fab fa-python", version: "3.12+", status: "expert" },
+  { name: "PostgreSQL & DynamoDB", icon: "fas fa-database", version: "Relational/NoSQL", status: "proficient" },
+  { name: "Jenkins", icon: "fas fa-cogs", version: "Automation", status: "proficient" },
+  { name: "Git & GitHub", icon: "fab fa-git-alt", version: "v2.4x", status: "expert" },
+  { name: "CloudWatch & Monitoring", icon: "fas fa-chart-line", version: "AWS Monitoring", status: "proficient" },
 ];
 
 const ToolsSection = () => {

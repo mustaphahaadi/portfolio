@@ -3,10 +3,8 @@ import { getProfile } from "../services/api";
 
 const defaultSocialLinks = [
   { href: "https://www.github.com/mustaphahaadi", icon: "fab fa-github", label: "github", pid: "3001" },
-  { href: "https://www.linkedin.com/mustaphahaadi", icon: "fab fa-linkedin-in", label: "linkedin", pid: "3002" },
+  { href: "https://www.linkedin.com/in/mustaphahaadi", icon: "fab fa-linkedin-in", label: "linkedin", pid: "3002" },
   { href: "https://www.x.com/mustaphahaadiX", icon: "fab fa-x-twitter", label: "x/twitter", pid: "3003" },
-
-
 ];
 
 const Footer = () => {

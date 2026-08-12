@@ -12,12 +12,20 @@ const ASCII_ART = `
 `;
 
 const FALLBACK_PROFILE = {
-  name: "Mustapha Haadi Bugnaba",
-  roles: ["Cloud & DevOps", "Continously Learning Advocate"],
-  bio: "Junior Cloud & DevOps Engineer and AWS Certified Cloud Practitioner with a First-Class BTech in Computer Technology. Hands-on experience deploying and managing cloud infrastructure on AWS (EC2, S3, VPC, IAM, CloudFormation, ALB/ASG), containerising applications with Docker, building CI/CD pipelines with GitHub Actions, and configuring Linux servers with Nginx, SSL, and systemd. Completed the AWS re:Start programme and the KodeKloud 100 Days of Cloud challenge. Active open-source contributor (huggingface/agents-course, 26.9k+ stars). Recognised technical educator with 300+ students trained in programming, cloud computing, and Linux — currently developing parallel training programmes at ReStartDigital.",
+  name: "Mustapha Haadi",
+  roles: [
+    "Cloud & DevOps Engineer",
+    "AWS Certified Cloud Practitioner",
+    "Technical Trainer & Educator"
+  ],
+  bio: "AWS Certified Cloud Practitioner and First-Class Computer Technology graduate with 26+ months of production DevOps experience and 300+ students trained. Owns infrastructure end-to-end, from provisioning and hardening to incident resolution and operational documentation. Proficient in Linux administration, container orchestration, serverless architecture, and Infrastructure as Code. Deepening AI and cloud expertise through Azubi Africa's intensive AWS Cloud programme while delivering professional Linux and AI training at ReStartDigital. Targets Cloud Engineer, DevOps Engineer, and AWS Technical Trainer roles.",
   profile_picture: null,
 };
-const DEFAULT_ROLES = ["Cloud & DevOps"];
+const DEFAULT_ROLES = [
+  "Cloud & DevOps Engineer",
+  "AWS Certified Cloud Practitioner",
+  "Technical Trainer & Educator"
+];
 
 const HeroSection = () => {
   const { data: profileResponse, isLoading } = useQuery({

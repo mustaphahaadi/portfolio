@@ -3,23 +3,25 @@ import { getEducation } from "../services/api";
 
 const defaultEducationItems = [
   {
-    year: "2021 – 2025",
-    institution: "Kumasi Technical University",
+    year: "May 2026 – Present",
+    institution: "Azubi Africa",
     description:
-      "Bachelor's degree in Computer Technology with a focus on software engineering and web development.",
+      "AWS Cloud Intensive Programme — Hands-on intensive engineering program covering AWS cloud architecture, serverless workflows, IaC, and AI integration.",
     location: "Kumasi, Ghana",
   },
   {
-    year: "2017 – 2020",
-    institution: "Ghanaian-German Snr High",
+    year: "Aug 2025 – Nov 2025",
+    institution: "AmaliTech",
     description:
-      "A pure general science with biology, chemistry, physics and elective maths.",
-    location: "Tepa, Ghana",
+      "AWS re/Start Programme — Industry certification program covering AWS cloud foundational services, Linux administration, Python scripting, and network security.",
+    location: "Ghana",
   },
   {
-    year: "– 2017",
-    institution: "Tuffour Red Sox Int.",
-    description: "Nursery & Basic Education",
+    year: "Jan 2022 – Oct 2025",
+    institution: "Kumasi Technical University",
+    description:
+      "BTech Computer Technology (First Class Honours) — Specialized in software development, cloud systems, network engineering, and system administration.",
+    location: "Kumasi, Ghana",
   },
 ];
 

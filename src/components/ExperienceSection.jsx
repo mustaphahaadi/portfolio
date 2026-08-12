@@ -3,36 +3,60 @@ import { getExperiences } from "../services/api";
 
 const defaultExperiences = [
   {
-    company: "ReStart Digital / Kumasi",
-    position: "Co-Founder & CEO",
-    year: "2024-Present",
+    company: "Azubi Africa / Kumasi (Hybrid)",
+    position: "AWS Cloud & AI Intern",
+    year: "May 2026 – Present",
     description:
-      "A startup building innovative software solutions, making technical decisions, and driving innovation in software solutions",
-    icon: "fas fa-users-cog",
+      "Provisioned EC2, S3, Lambda, and CloudFormation across 4+ team projects in agile sprints. Architected serverless workflows and end-to-end cloud infrastructure using IaC (CloudFormation, Terraform) while optimizing resource strategies to eliminate unnecessary cloud spend.",
+    icon: "fab fa-aws",
   },
   {
-    company: "Khoders World - KsTU / Campus Club",
-    position: "Former President & Tutor",
-    year: "2022-Present",
+    company: "ReStartDigital / Kumasi",
+    position: "Technical Trainer",
+    year: "Dec 2025 – Present",
     description:
-      "Mentoring beginner programmers, making technical decisions, and driving innovation in software solutions.",
+      "Designed two parallel professional tracks (Linux for Cybersecurity and AI for Web Development). Delivered hands-on curricula to 40+ working professionals with 90%+ satisfaction scores; built lab guides and reference materials from scratch.",
+    icon: "fas fa-chalkboard-teacher",
+  },
+  {
+    company: "ReStartDigital / Kumasi",
+    position: "DevOps Engineer",
+    year: "Aug 2024 – Apr 2026",
+    description:
+      "Operated as sole DevOps engineer owning cloud infrastructure and release pipelines. Slashed deployment steps from 12 to 2 per release via GitHub Actions (80% rollout time cut); administered 4+ Linux servers with Nginx, SSL/TLS, and systemd sustaining 99%+ uptime.",
+    icon: "fas fa-server",
+  },
+  {
+    company: "IRID, KsTU / Kumasi",
+    position: "Technical Support Lead",
+    year: "Nov 2025 – Present",
+    description:
+      "Led technical support activities by troubleshooting complex systems, resolving user incidents, and maintaining smooth day-to-day technology operations within the research institute.",
+    icon: "fas fa-headset",
+  },
+  {
+    company: "Esoko",
+    position: "Quality Assurance Officer",
+    year: "Mar 2025 – May 2026",
+    description:
+      "Executed quality assurance testing, verified release builds, and enforced quality control standards across software platforms and enterprise tools.",
+    icon: "fas fa-tasks",
+  },
+  {
+    company: "Ghana Skills Development Fund",
+    position: "Technical Support Lead - SHS Waste Management Quiz 2025",
+    year: "Jun 2025 – Aug 2025",
+    description:
+      "Managed technical setup and infrastructure support for the quiz event to ensure seamless participation and minimal system disruptions across KsTU and Prempeh Assembly hall venues.",
+    icon: "fas fa-tools",
+  },
+  {
+    company: "GI-KACE / Kumasi",
+    position: "Assistant Instructor",
+    year: "Oct 2024 – Dec 2024",
+    description:
+      "Supported technical training sessions at Ghana-India Kofi Annan Centre of Excellence in ICT, guiding learners through practical hands-on lab exercises and software concepts.",
     icon: "fas fa-laptop-code",
-  },
-  {
-    company: "IRID, KsTU",
-    position: "Research Associate",
-    year: "May - Oct, 2025",
-    description:
-      "Led front-end development for multiple projects, implemented modern JavaScript frameworks, and optimized web performance.",
-    icon: "fas fa-chart-line",
-  },
-  {
-    company: "Code Masters / London",
-    position: "Full Stack Developer",
-    year: "2019-2020",
-    description:
-      "Designed and developed full-stack applications, implemented REST APIs, and managed database systems.",
-    icon: "fas fa-layer-group",
   },
 ];
 
