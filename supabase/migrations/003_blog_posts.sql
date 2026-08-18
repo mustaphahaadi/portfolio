@@ -1,48 +1,60 @@
 -- ================================================================
--- BLOG POSTS TABLE — Run this in your Supabase SQL Editor
+-- BLOG POSTS — FIX MIGRATION
+-- Drops the partially-created table and recreates it cleanly.
+-- Safe to run multiple times.
 -- ================================================================
 
-create table if not exists public.blog_posts (
-  id            uuid primary key default gen_random_uuid(),
-  slug          text unique not null,
-  title         text not null,
-  excerpt       text,
-  content       text,           -- Full Markdown body
-  cover_image   text,           -- Optional image URL
-  tags          text[],
-  category      text,
-  read_time     int,            -- Estimated minutes
-  is_published  boolean default false,
-  published_at  timestamptz,
-  created_at    timestamptz default now(),
-  updated_at    timestamptz default now()
+DROP TABLE IF EXISTS public.blog_posts CASCADE;
+
+CREATE TABLE public.blog_posts (
+    id            UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    slug          TEXT UNIQUE NOT NULL,
+    title         TEXT NOT NULL,
+    excerpt       TEXT,
+    content       TEXT,
+    cover_image   TEXT,
+    tags          TEXT[],
+    category      TEXT,
+    read_time     INT,
+    is_published  BOOLEAN DEFAULT false,
+    published_at  TIMESTAMP WITH TIME ZONE,
+    created_at    TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at    TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
 -- ── Row Level Security ──────────────────────────────────────────
-alter table public.blog_posts enable row level security;
+ALTER TABLE public.blog_posts ENABLE ROW LEVEL SECURITY;
 
--- Allow anyone to read published posts (public portfolio)
-create policy "Public: read published posts"
-  on public.blog_posts for select
-  using (is_published = true);
+DROP POLICY IF EXISTS "Public: read published posts" ON public.blog_posts;
+DROP POLICY IF EXISTS "Allow authenticated full control on blog_posts" ON public.blog_posts;
 
--- ── Sample Seed Data ────────────────────────────────────────────
-insert into public.blog_posts (slug, title, excerpt, category, tags, read_time, is_published, published_at, content)
-values (
+-- Anyone can read published posts (public portfolio)
+CREATE POLICY "Public: read published posts"
+    ON public.blog_posts FOR SELECT
+    USING (is_published = true);
+
+-- Authenticated users (you, via Supabase dashboard) have full control
+CREATE POLICY "Allow authenticated full control on blog_posts"
+    ON public.blog_posts FOR ALL
+    USING (auth.role() = 'authenticated');
+
+-- ── Seed: one starter post ──────────────────────────────────────
+INSERT INTO public.blog_posts (slug, title, excerpt, category, tags, read_time, is_published, published_at, content)
+VALUES (
   'terraform-aws-eks-zero-to-production',
   'Terraform on AWS: Zero to EKS in 30 Minutes',
   'A hands-on walkthrough of provisioning a production-grade EKS cluster using Terraform modules, including VPC design, IAM roles, and node group auto-scaling.',
   'Infrastructure',
-  array['Terraform', 'AWS', 'EKS', 'DevOps'],
+  ARRAY['Terraform', 'AWS', 'EKS', 'DevOps'],
   12,
   true,
-  now(),
+  timezone('utc'::text, now()),
   '# Terraform on AWS: Zero to EKS in 30 Minutes
 
 ## Introduction
 
 Elastic Kubernetes Service (EKS) is AWS''s managed Kubernetes offering.
-Pair it with Terraform and you get infrastructure-as-code you can version, review, and ship like any software artifact.
+Pair it with Terraform and you get infrastructure-as-code you can version, review, and ship like any other software artifact.
 
 ## Step 1 — VPC Module
 
@@ -70,6 +82,21 @@ terraform plan -out=tfplan
 terraform apply tfplan
 ```
 
-Posts deployed! 🚀
+## Connecting kubectl
+
+```bash
+aws eks --region eu-west-1 update-kubeconfig --name my-eks
+kubectl get nodes
+```
+
+## Summary
+
+| Step | Resource | Time |
+| :--- | :--- | :--- |
+| VPC | 3 AZs, NAT gateway | ~2 min |
+| EKS Cluster | Control plane | ~12 min |
+| Node Group | 2× t3.medium | ~4 min |
+
+With Terraform modules you can iterate on this cluster in CI/CD just like application code — plan in PRs, apply on merge.
 '
 );
