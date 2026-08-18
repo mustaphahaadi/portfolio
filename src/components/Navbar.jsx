@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../services/api";
 import { toast } from "react-hot-toast";
@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const isOnBlogPage = location.pathname.startsWith("/blog");
 
   const { data: profileResponse } = useQuery({
@@ -41,19 +42,37 @@ const Navbar = () => {
     { href: "#contact", label: "contact", icon: "fas fa-envelope", section: true },
   ];
 
-  const renderNavLink = (link, extraStyle = {}) => {
-    if (link.section) {
-      const href = isOnBlogPage ? `/${link.href}` : link.href;
-      return (
-        <a key={link.href} href={href} onClick={handleLinkClick} className="nav-link" style={extraStyle}>
-          <i className={`${link.icon}`} style={{ marginRight: "4px", fontSize: "0.65rem" }}></i>
-          {link.label}
-        </a>
-      );
+  // Smooth scroll to a section ID — works on both / and /blog
+  const scrollToSection = (sectionId) => {
+    setIsMenuOpen(false);
+    const doScroll = () => {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    if (isOnBlogPage) {
+      // Navigate to home first, then scroll after render
+      navigate("/");
+      // Small delay lets React render the home page before scrolling
+      setTimeout(doScroll, 80);
+    } else {
+      doScroll();
     }
-    return null;
   };
 
+  const renderNavLink = (link, extraStyle = {}) => {
+    const sectionId = link.href.replace("#", "");
+    return (
+      <button
+        key={link.href}
+        onClick={() => scrollToSection(sectionId)}
+        className="nav-link"
+        style={{ background: "none", border: "none", cursor: "pointer", ...extraStyle }}
+      >
+        <i className={`${link.icon}`} style={{ marginRight: "4px", fontSize: "0.65rem" }}></i>
+        {link.label}
+      </button>
+    );
+  };
 
   return (
     <nav className="nav-terminal">

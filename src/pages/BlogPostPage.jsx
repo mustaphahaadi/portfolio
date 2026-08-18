@@ -398,15 +398,20 @@ const BlogPostPage = () => {
               <i className="fas fa-arrow-left" style={{ fontSize: "0.7rem" }}></i>
               <span>ls ./blog/</span>
             </Link>
-            <Link
-              to="#contact"
-              onClick={() => navigate("/#contact")}
+            <button
+              onClick={() => {
+                navigate("/");
+                setTimeout(() => {
+                  const el = document.getElementById("contact");
+                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }, 80);
+              }}
               className="terminal-btn amber"
-              style={{ textDecoration: "none" }}
+              style={{ border: "none", cursor: "pointer" }}
             >
               <span>hire_me --now</span>
               <i className="fas fa-arrow-right" style={{ fontSize: "0.7rem" }}></i>
-            </Link>
+            </button>
           </div>
         </article>
 
