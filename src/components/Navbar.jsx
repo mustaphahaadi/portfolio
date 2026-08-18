@@ -1,10 +1,13 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../services/api";
 import { toast } from "react-hot-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const location = useLocation();
+  const isOnBlogPage = location.pathname.startsWith("/blog");
 
   const { data: profileResponse } = useQuery({
     queryKey: ['profile'],
@@ -30,13 +33,27 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { href: "#hero", label: "about", icon: "fas fa-user" },
-    { href: "#experience", label: "experience", icon: "fas fa-briefcase" },
-    { href: "#portfolio", label: "projects", icon: "fas fa-code" },
-    { href: "#certifications", label: "certifications", icon: "fas fa-certificate" },
-    { href: "#testimonials", label: "testimonials", icon: "fas fa-quote-left" },
-    { href: "#contact", label: "contact", icon: "fas fa-envelope" },
+    { href: "#hero", label: "about", icon: "fas fa-user", section: true },
+    { href: "#experience", label: "experience", icon: "fas fa-briefcase", section: true },
+    { href: "#portfolio", label: "projects", icon: "fas fa-code", section: true },
+    { href: "#certifications", label: "certifications", icon: "fas fa-certificate", section: true },
+    { href: "#testimonials", label: "testimonials", icon: "fas fa-quote-left", section: true },
+    { href: "#contact", label: "contact", icon: "fas fa-envelope", section: true },
   ];
+
+  const renderNavLink = (link, extraStyle = {}) => {
+    if (link.section) {
+      const href = isOnBlogPage ? `/${link.href}` : link.href;
+      return (
+        <a key={link.href} href={href} onClick={handleLinkClick} className="nav-link" style={extraStyle}>
+          <i className={`${link.icon}`} style={{ marginRight: "4px", fontSize: "0.65rem" }}></i>
+          {link.label}
+        </a>
+      );
+    }
+    return null;
+  };
+
 
   return (
     <nav className="nav-terminal">
@@ -66,17 +83,16 @@ const Navbar = () => {
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={handleLinkClick}
-                className="nav-link"
-              >
-                <i className={`${link.icon}`} style={{ marginRight: "4px", fontSize: "0.65rem" }}></i>
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => renderNavLink(link))}
+            <Link
+              to="/blog"
+              onClick={handleLinkClick}
+              className="nav-link"
+              style={isOnBlogPage ? { color: "var(--term-amber)", borderColor: "var(--term-amber-dim)" } : {}}
+            >
+              <i className="fas fa-rss" style={{ marginRight: "4px", fontSize: "0.65rem" }}></i>
+              blog
+            </Link>
           </div>
 
           {/* CV Button + Hamburger */}
@@ -123,19 +139,19 @@ const Navbar = () => {
             }}
           >
             <div className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={handleLinkClick}
-                  className="nav-link block"
-                  style={{ fontSize: "0.8rem" }}
-                >
-                  <span style={{ color: "var(--term-green-dim)", marginRight: "8px" }}>&gt;</span>
-                  <i className={link.icon} style={{ marginRight: "6px", fontSize: "0.65rem", color: "var(--term-amber)" }}></i>
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) => renderNavLink(link, { fontSize: "0.8rem" }))}
+              <Link
+                to="/blog"
+                onClick={handleLinkClick}
+                className="nav-link block"
+                style={isOnBlogPage
+                  ? { fontSize: "0.8rem", color: "var(--term-amber)" }
+                  : { fontSize: "0.8rem" }}
+              >
+                <span style={{ color: "var(--term-green-dim)", marginRight: "8px" }}>&gt;</span>
+                <i className="fas fa-rss" style={{ marginRight: "6px", fontSize: "0.65rem", color: "var(--term-amber)" }}></i>
+                blog
+              </Link>
               <a
                 href={cvUrl || "#"}
                 onClick={handleCvClick}

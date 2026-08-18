@@ -56,6 +56,49 @@ export const getServices = () => fetchTableData("services");
 export const getTestimonials = () => fetchTableData("testimonials");
 export const getCertifications = () => fetchTableData("certifications");
 
+export const getBlogPosts = async () => {
+  if (!isSupabaseConfigured) {
+    return { data: null };
+  }
+  try {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, slug, title, excerpt, cover_image, tags, category, read_time, published_at")
+      .eq("is_published", true)
+      .order("published_at", { ascending: false });
+    if (error) {
+      console.warn("Supabase query warning [blog_posts]:", error.message);
+      return { data: null };
+    }
+    return { data };
+  } catch (err) {
+    console.error("Supabase error [blog_posts]:", err);
+    return { data: null };
+  }
+};
+
+export const getBlogPost = async (slug) => {
+  if (!isSupabaseConfigured) {
+    return { data: null };
+  }
+  try {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("*")
+      .eq("slug", slug)
+      .eq("is_published", true)
+      .maybeSingle();
+    if (error || !data) {
+      console.warn("Supabase query warning [blog_posts slug]:", error?.message);
+      return { data: null };
+    }
+    return { data };
+  } catch (err) {
+    console.error("Supabase error [blog_posts slug]:", err);
+    return { data: null };
+  }
+};
+
 export const submitContact = async (formData) => {
   let supabaseResult = null;
 
@@ -112,5 +155,7 @@ export default {
   getServices,
   getTestimonials,
   getCertifications,
+  getBlogPosts,
+  getBlogPost,
   submitContact,
 };

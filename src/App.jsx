@@ -1,3 +1,4 @@
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import ServicesSection from "./components/ServicesSection";
@@ -9,26 +10,50 @@ import CertificationsSection from "./components/CertificationsSection";
 import TestimonialSection from "./components/TestimonialSection";
 import Footer from "./components/Footer";
 import ContactSection from "./components/ContactSection";
+import BlogSection from "./components/BlogSection";
+import BlogListPage from "./pages/BlogListPage";
+import BlogPostPage from "./pages/BlogPostPage";
 import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from "react-hot-toast";
 
+/* ─── Main Portfolio SPA ──────────────────────────── */
+const PortfolioHome = () => (
+  <div className="terminal-screen">
+    <div className="crt-overlay"></div>
+    <Navbar />
+    <HeroSection />
+    <ExperienceSection />
+    <PortfolioSection />
+    <ToolsSection />
+    <EducationSection />
+    <CertificationsSection />
+    <ServicesSection />
+    <BlogSection />
+    <TestimonialSection />
+    <ContactSection />
+    <Footer />
+  </div>
+);
+
+/* ─── Blog shell — keeps Navbar + Footer ──────────── */
+const BlogShell = ({ children }) => (
+  <div className="terminal-screen">
+    <div className="crt-overlay"></div>
+    <Navbar />
+    {children}
+    <Footer />
+  </div>
+);
+
 const App = () => {
   return (
-    <div className="terminal-screen">
-      {/* CRT Scanline Overlay */}
-      <div className="crt-overlay"></div>
+    <>
+      <Routes>
+        <Route path="/" element={<PortfolioHome />} />
+        <Route path="/blog" element={<BlogShell><BlogListPage /></BlogShell>} />
+        <Route path="/blog/:slug" element={<BlogShell><BlogPostPage /></BlogShell>} />
+      </Routes>
 
-      <Navbar />
-      <HeroSection />
-      <ExperienceSection />
-      <PortfolioSection />
-      <ToolsSection />
-      <EducationSection />
-      <CertificationsSection />
-      <ServicesSection />
-      <TestimonialSection />
-      <ContactSection />
-      <Footer />
       <Analytics />
       <Toaster
         position="bottom-right"
@@ -42,7 +67,7 @@ const App = () => {
           },
         }}
       />
-    </div>
+    </>
   );
 };
 
