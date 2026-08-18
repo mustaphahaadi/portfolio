@@ -11,6 +11,8 @@ const ASCII_ART = `
   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝
 `;
 
+const DEFAULT_AVATAR = "https://github.com/mustaphahaadi.png";
+
 const FALLBACK_PROFILE = {
   name: "Mustapha Haadi",
   roles: [
@@ -19,8 +21,9 @@ const FALLBACK_PROFILE = {
     "Technical Trainer & Educator"
   ],
   bio: "AWS Certified Cloud Practitioner and First-Class Computer Technology graduate with 26+ months of production DevOps experience and 300+ students trained. Owns infrastructure end-to-end, from provisioning and hardening to incident resolution and operational documentation. Proficient in Linux administration, container orchestration, serverless architecture, and Infrastructure as Code. Deepening AI and cloud expertise through Azubi Africa's intensive AWS Cloud programme while delivering professional Linux and AI training at ReStartDigital. Targets Cloud Engineer, DevOps Engineer, and AWS Technical Trainer roles.",
-  profile_picture: null,
+  profile_picture: DEFAULT_AVATAR,
 };
+
 const DEFAULT_ROLES = [
   "Cloud & DevOps Engineer",
   "AWS Certified Cloud Practitioner",
@@ -37,6 +40,7 @@ const HeroSection = () => {
   });
 
   const profile = profileResponse || FALLBACK_PROFILE;
+  const avatarSrc = profile.profile_picture || DEFAULT_AVATAR;
 
   const [typedText, setTypedText] = useState("");
   const roles = profile.roles && profile.roles.length > 0 ? profile.roles : DEFAULT_ROLES;
@@ -80,7 +84,9 @@ const HeroSection = () => {
   const handleClick = (e) => {
     e.preventDefault();
     const contactSection = document.getElementById('contact');
-    contactSection.scrollIntoView({ behavior: 'smooth' });
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const bootLines = [
@@ -155,8 +161,12 @@ const HeroSection = () => {
                       </div>
                     ) : (
                       <img
-                        src={profile.profile_picture || "https://placehold.co/400x400/0a0a0a/00ff41?text=%3E_"}
+                        src={avatarSrc}
                         alt={profile.name}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = DEFAULT_AVATAR;
+                        }}
                         className="rounded-full object-cover"
                         style={{
                           width: "100px",

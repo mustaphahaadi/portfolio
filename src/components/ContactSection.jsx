@@ -1,6 +1,15 @@
 import { useState } from "react";
-import { submitContact } from "../services/api";
+import { useQuery } from "@tanstack/react-query";
+import { submitContact, getProfile } from "../services/api";
 import { toast } from "react-hot-toast";
+
+const FALLBACK_CONTACT = {
+  location: "Kumasi, Ghana",
+  email: "mustaphahaadi04@gmail.com",
+  phone: "+233 (0) 548-367-637",
+  github_url: "https://github.com/mustaphahaadi",
+  linkedin_url: "https://linkedin.com/in/mustaphahaadi",
+};
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -10,17 +19,33 @@ const ContactSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { data: profileData } = useQuery({
+    queryKey: ['profile'],
+    queryFn: async () => {
+      const res = await getProfile();
+      return res.data;
+    }
+  });
+
+  const profile = profileData || FALLBACK_CONTACT;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      toast.error("> Please fill in all required fields.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
       await submitContact(formData);
-      toast.success("> Message sent successfully!");
+      toast.success("> Message sent successfully to Supabase database!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Contact form error:", error);
-      toast.error(`> Error: ${error.message}. Retry.`);
+      toast.error(`> Error sending message: ${error.message || 'Failed to submit'}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -124,7 +149,7 @@ const ContactSection = () => {
                       rows="5"
                       className="terminal-input"
                       style={{ resize: "vertical", paddingTop: "10px" }}
-                      placeholder="Hi, I'd like to discuss..."
+                      placeholder="Hi, I'd like to discuss a cloud or DevOps opportunity..."
                       required
                     ></textarea>
                   </div>
@@ -173,9 +198,9 @@ const ContactSection = () => {
                     <span style={{ color: "var(--term-amber)", fontSize: "0.75rem", fontWeight: "600" }}>LOCATION</span>
                   </div>
                   <div style={{ paddingLeft: "26px" }}>
-                    <span style={{ color: "var(--term-green)", fontSize: "0.85rem" }}>Kumasi, Ghana</span>
+                    <span style={{ color: "var(--term-green)", fontSize: "0.85rem" }}>{profile.location || FALLBACK_CONTACT.location}</span>
                     <div style={{ color: "var(--term-gray)", fontSize: "0.7rem", marginTop: "2px" }}>
-                      # Open to remote work worldwide
+                      # Open to remote & hybrid roles worldwide
                     </div>
                   </div>
                 </div>
@@ -187,11 +212,11 @@ const ContactSection = () => {
                     <span style={{ color: "var(--term-amber)", fontSize: "0.75rem", fontWeight: "600" }}>EMAIL</span>
                   </div>
                   <div style={{ paddingLeft: "26px" }}>
-                    <a href="mailto:mustaphahaadi04@gmail.com" style={{ color: "var(--term-green)", fontSize: "0.85rem" }}>
-                      mustaphahaadi04@gmail.com
+                    <a href={`mailto:${profile.email || FALLBACK_CONTACT.email}`} style={{ color: "var(--term-green)", fontSize: "0.85rem" }}>
+                      {profile.email || FALLBACK_CONTACT.email}
                     </a>
                     <div style={{ color: "var(--term-gray)", fontSize: "0.7rem", marginTop: "2px" }}>
-                      # Typically responds within 24 hours
+                      # Responds within 24 hours
                     </div>
                   </div>
                 </div>
@@ -203,23 +228,27 @@ const ContactSection = () => {
                     <span style={{ color: "var(--term-amber)", fontSize: "0.75rem", fontWeight: "600" }}>PHONE</span>
                   </div>
                   <div style={{ paddingLeft: "26px" }}>
-                    <span style={{ color: "var(--term-green)", fontSize: "0.85rem" }}>+233 (0) 548-367-637</span>
+                    <span style={{ color: "var(--term-green)", fontSize: "0.85rem" }}>{FALLBACK_CONTACT.phone}</span>
                     <div style={{ color: "var(--term-gray)", fontSize: "0.7rem", marginTop: "2px" }}>
                       # Available Mon-Fri, 9am-5pm GMT
                     </div>
                   </div>
                 </div>
 
-                {/* Schedule */}
+                {/* Schedule Call / Email Direct */}
                 <div className="log-entry" style={{ marginBottom: 0 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
                     <i className="fas fa-calendar-alt" style={{ color: "var(--term-cyan)", fontSize: "0.85rem", width: "16px", textAlign: "center" }}></i>
                     <span style={{ color: "var(--term-amber)", fontSize: "0.75rem", fontWeight: "600" }}>SCHEDULE</span>
                   </div>
                   <div style={{ paddingLeft: "26px" }}>
-                    <a href="#" className="terminal-btn cyan" style={{ padding: "4px 12px", fontSize: "0.7rem" }}>
-                      <i className="fas fa-video" style={{ fontSize: "0.6rem" }}></i>
-                      <span>book_call --schedule</span>
+                    <a 
+                      href={`mailto:${profile.email || FALLBACK_CONTACT.email}?subject=Schedule%20a%20Meeting`} 
+                      className="terminal-btn cyan" 
+                      style={{ padding: "4px 12px", fontSize: "0.7rem" }}
+                    >
+                      <i className="fas fa-envelope-open-text" style={{ fontSize: "0.6rem" }}></i>
+                      <span>book_call --via-email</span>
                     </a>
                   </div>
                 </div>

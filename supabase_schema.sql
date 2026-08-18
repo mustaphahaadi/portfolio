@@ -182,11 +182,12 @@ CREATE POLICY "Allow authenticated full control on contact_messages" ON public.c
 -- ====================================================================
 
 -- Seed Profile
-INSERT INTO public.profile (name, roles, bio, github_link, linkedin_link, twitter_link)
+INSERT INTO public.profile (name, roles, bio, profile_picture, github_link, linkedin_link, twitter_link)
 SELECT 
     'Mustapha Haadi',
     ARRAY['Cloud & DevOps Engineer', 'AWS Certified Cloud Practitioner', 'Technical Trainer & Educator'],
     'AWS Certified Cloud Practitioner and First-Class Computer Technology graduate with 26+ months of production DevOps experience and 300+ students trained. Owns infrastructure end-to-end, from provisioning and hardening to incident resolution and operational documentation. Proficient in Linux administration, container orchestration, serverless architecture, and Infrastructure as Code.',
+    'https://github.com/mustaphahaadi.png',
     'https://www.github.com/mustaphahaadi',
     'https://www.linkedin.com/in/mustaphahaadi',
     'https://www.x.com/mustaphahaadiX'
