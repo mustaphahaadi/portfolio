@@ -57,25 +57,50 @@ export const getTestimonials = () => fetchTableData("testimonials");
 export const getCertifications = () => fetchTableData("certifications");
 
 export const submitContact = async (formData) => {
-  if (!isSupabaseConfigured) {
-    // Simulated delay if Supabase isn't configured yet
+  let supabaseResult = null;
+
+  if (isSupabaseConfigured) {
+    const { data, error } = await supabase.from("contact_messages").insert([
+      {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      },
+    ]);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+    supabaseResult = data;
+  } else {
     await new Promise((resolve) => setTimeout(resolve, 800));
-    return { data: { message: "Message received (offline mode)" } };
   }
 
-  const { data, error } = await supabase.from("contact_messages").insert([
-    {
-      name: formData.name,
-      email: formData.email,
-      message: formData.message,
-    },
-  ]);
+  // Trigger optional instant email notification (Formspree / Webhook / Edge Function)
+  const emailEndpoint =
+    import.meta.env.VITE_FORMSPREE_ENDPOINT ||
+    import.meta.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ||
+    import.meta.env.VITE_EMAIL_WEBHOOK_URL;
 
-  if (error) {
-    throw new Error(error.message);
+  if (emailEndpoint) {
+    try {
+      await fetch(emailEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _replyto: formData.email,
+          _subject: `[Portfolio Contact] Message from ${formData.name}`,
+        }),
+      });
+    } catch (emailErr) {
+      console.warn("Email notification dispatch warning:", emailErr);
+    }
   }
 
-  return { data };
+  return { data: supabaseResult || { message: "Message received" } };
 };
 
 export default {

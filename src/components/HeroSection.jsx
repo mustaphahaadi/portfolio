@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../services/api";
+import GithubFeed from "./GithubFeed";
 
 const ASCII_ART = `
   ██╗  ██╗ █████╗  █████╗ ██████╗ ██╗
@@ -212,7 +213,7 @@ const HeroSection = () => {
 
                 {/* Bio */}
                 <div
-                  className="mx-auto mb-8"
+                  className="mx-auto mb-6"
                   style={{
                     maxWidth: "700px",
                     padding: "16px",
@@ -228,6 +229,11 @@ const HeroSection = () => {
                     {profile.bio}
                   </p>
                 </div>
+
+                {/* Dynamic GitHub Recent Commits Stream */}
+                <GithubFeed />
+
+                <div className="mb-8"></div>
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
