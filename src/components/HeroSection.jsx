@@ -230,7 +230,7 @@ const HeroSection = () => {
                 </div>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
                   <a
                     href="#contact"
                     onClick={handleClick}
@@ -249,6 +249,17 @@ const HeroSection = () => {
                     <span style={{ color: "var(--term-amber)" }}>&gt;</span>
                     <span>ls projects/</span>
                     <i className="fas fa-folder-open" style={{ fontSize: "0.7rem" }}></i>
+                  </a>
+                  <a
+                    href={profile.resume || "#"}
+                    target={profile.resume ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    className="terminal-btn cyan"
+                    style={{ justifyContent: "center" }}
+                  >
+                    <span style={{ color: "var(--term-cyan)" }}>&gt;</span>
+                    <span>cat my_cv.pdf</span>
+                    <i className="fas fa-file-download" style={{ fontSize: "0.7rem" }}></i>
                   </a>
                 </div>
               </div>

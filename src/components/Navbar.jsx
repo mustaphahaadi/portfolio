@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../services/api";
+import { toast } from "react-hot-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -13,10 +14,19 @@ const Navbar = () => {
     }
   });
 
-  const resumeUrl = profileResponse?.resume || "#";
+  const cvUrl = profileResponse?.resume || profileResponse?.cv_url || "";
 
   const handleLinkClick = () => {
     setIsMenuOpen(false);
+  };
+
+  const handleCvClick = (e) => {
+    if (!cvUrl || cvUrl === "#") {
+      e.preventDefault();
+      toast.error("> CV link is being updated. Upload a PDF link to the 'resume' column in Supabase!", {
+        duration: 4000,
+      });
+    }
   };
 
   const navLinks = [
@@ -72,14 +82,15 @@ const Navbar = () => {
           {/* CV Button + Hamburger */}
           <div className="flex items-center gap-3">
             <a
-              href={resumeUrl}
-              target="_blank"
+              href={cvUrl || "#"}
+              onClick={handleCvClick}
+              target={cvUrl && cvUrl !== "#" ? "_blank" : "_self"}
               rel="noopener noreferrer"
               className="terminal-btn hidden sm:inline-flex"
               style={{ padding: "5px 14px", fontSize: "0.75rem" }}
             >
-              <i className="fas fa-download"></i>
-              <span>resume.pdf</span>
+              <i className="fas fa-file-download"></i>
+              <span>my_cv.pdf</span>
             </a>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -126,14 +137,15 @@ const Navbar = () => {
                 </a>
               ))}
               <a
-                href={resumeUrl}
-                target="_blank"
+                href={cvUrl || "#"}
+                onClick={handleCvClick}
+                target={cvUrl && cvUrl !== "#" ? "_blank" : "_self"}
                 rel="noopener noreferrer"
                 className="terminal-btn sm:hidden"
                 style={{ padding: "6px 14px", fontSize: "0.75rem", marginTop: "8px", justifyContent: "center" }}
               >
-                <i className="fas fa-download"></i>
-                <span>resume.pdf</span>
+                <i className="fas fa-file-download"></i>
+                <span>my_cv.pdf</span>
               </a>
             </div>
           </div>
