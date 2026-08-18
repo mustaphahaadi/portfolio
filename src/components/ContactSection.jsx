@@ -41,7 +41,7 @@ const ContactSection = () => {
 
     try {
       await submitContact(formData);
-      toast.success("> Message sent successfully to Supabase database!");
+      toast.success("> Message sent successfully! Thanks for reaching out. You'll hear from us.");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Contact form error:", error);
