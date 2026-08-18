@@ -117,8 +117,9 @@ CREATE TABLE IF NOT EXISTS public.contact_messages (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- Blog Posts Table
-CREATE TABLE IF NOT EXISTS public.blog_posts (
+-- Blog Posts Table (drop first to recover from any partial earlier run)
+DROP TABLE IF EXISTS public.blog_posts CASCADE;
+CREATE TABLE public.blog_posts (
     id            UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     slug          TEXT UNIQUE NOT NULL,
     title         TEXT NOT NULL,
@@ -133,16 +134,6 @@ CREATE TABLE IF NOT EXISTS public.blog_posts (
     created_at    TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at    TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
--- Ensure all columns exist in case the table was created in an earlier partial run
-ALTER TABLE public.blog_posts ADD COLUMN IF NOT EXISTS excerpt       TEXT;
-ALTER TABLE public.blog_posts ADD COLUMN IF NOT EXISTS content       TEXT;
-ALTER TABLE public.blog_posts ADD COLUMN IF NOT EXISTS cover_image   TEXT;
-ALTER TABLE public.blog_posts ADD COLUMN IF NOT EXISTS tags          TEXT[];
-ALTER TABLE public.blog_posts ADD COLUMN IF NOT EXISTS category      TEXT;
-ALTER TABLE public.blog_posts ADD COLUMN IF NOT EXISTS read_time     INT;
-ALTER TABLE public.blog_posts ADD COLUMN IF NOT EXISTS is_published  BOOLEAN DEFAULT false;
-ALTER TABLE public.blog_posts ADD COLUMN IF NOT EXISTS published_at  TIMESTAMP WITH TIME ZONE;
-ALTER TABLE public.blog_posts ADD COLUMN IF NOT EXISTS updated_at    TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now());
 
 
 -- ====================================================================
