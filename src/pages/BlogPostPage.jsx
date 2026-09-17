@@ -201,7 +201,7 @@ const BlogPostPage = () => {
             bash: ./posts/{slug}.md: No such file or directory
           </p>
           <p style={{ color: "var(--term-gray)", fontSize: "0.8rem", marginBottom: "24px" }}>
-            This post doesn't exist or hasn't been published yet.
+            This post doesn&apos;t exist or hasn&apos;t been published yet.
           </p>
           <Link to="/blog" className="terminal-btn" style={{ textDecoration: "none" }}>
             <span style={{ color: "var(--term-cyan)" }}>$</span>
@@ -432,7 +432,7 @@ const BlogPostPage = () => {
             className="hidden lg:block"
           >
             <div style={{ color: "var(--term-gray)", fontSize: "0.7rem", marginBottom: "10px" }}>
-              <span style={{ color: "var(--term-cyan)" }}>$</span> grep -n "^#" {slug}.md
+              <span style={{ color: "var(--term-cyan)" }}>$</span> grep -n &quot;^#&quot; {slug}.md
             </div>
             <nav>
               {headings.map((h) => (

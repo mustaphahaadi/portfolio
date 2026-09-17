@@ -36,6 +36,8 @@ const PortfolioHome = () => (
 );
 
 /* ─── Blog shell — keeps Navbar + Footer ──────────── */
+import PropTypes from "prop-types";
+
 const BlogShell = ({ children }) => (
   <div className="terminal-screen">
     <div className="crt-overlay"></div>
@@ -44,6 +46,10 @@ const BlogShell = ({ children }) => (
     <Footer />
   </div>
 );
+
+BlogShell.propTypes = {
+  children: PropTypes.node,
+};
 
 const App = () => {
   return (

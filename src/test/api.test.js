@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { getProfile, getProjects, submitContact } from "../services/api";
 
 describe("API Service Suite", () => {

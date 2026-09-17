@@ -1,0 +1,31 @@
+name: Supabase Keep-Alive Cron
+
+on:
+  schedule:
+    # Run twice daily at 00:00 and 12:00 UTC to keep Supabase database active
+    - cron: '0 0,12 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-supabase:
+    name: Ping Supabase Database
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Keep-Alive Ping to Supabase API
+        env:
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || 'https://vrlncehqzrnjvpqcsaht.supabase.co' }}
+          SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || 'sb_publishable_q6GpTq5RdotSYbR5QCMo6Q_KILZ8s_j' }}
+        run: |
+          echo "Sending keep-alive ping to Supabase REST API..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            "${SUPABASE_URL}/rest/v1/profile?select=id&limit=1")
+          
+          echo "Supabase Response Status Code: ${HTTP_STATUS}"
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 400 ]; then
+            echo "Successfully pinged Supabase database. Project is active!"
+          else
+            echo "Warning: Received HTTP status ${HTTP_STATUS} from Supabase"
+            exit 1
+          fi

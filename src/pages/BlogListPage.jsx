@@ -266,7 +266,7 @@ const BlogListPage = () => {
           }}
         >
           <span style={{ color: "var(--term-red)" }}>bash: no match</span> — no posts found for{" "}
-          <span style={{ color: "var(--term-amber)" }}>"{search}"</span>
+          <span style={{ color: "var(--term-amber)" }}>&quot;{search}&quot;</span>
         </div>
       ) : (
         <div className="flex flex-col gap-4">
